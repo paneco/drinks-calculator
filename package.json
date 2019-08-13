@@ -1,0 +1,7 @@
+{
+  "name": "drinks-calculator",
+  "scripts": {
+    "test": "jest",
+    "coverage": "jest --coverage"  
+  }
+}
