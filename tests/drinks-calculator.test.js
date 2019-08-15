@@ -2,6 +2,22 @@
 
 const calculator = require('../js/drinks-calculator.js');
 
+test('determine percentage value when element does not exist', () => {
+  document.body.innerHTML = '<div>' +
+    '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="14"/>' +
+    '<input id="dc-wine-range-is-locked" name="dc-wine-range-is-locked" type="checkbox"/>' +
+    '</div>';
+  expect(calculator.getPercentageValue('unknown')).toBe(0);
+});
+
+test('determine percentage value when element exists', () => {
+  document.body.innerHTML = '<div>' +
+    '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="14"/>' +
+    '<input id="dc-wine-range-is-locked" name="dc-wine-range-is-locked" type="checkbox"/>' +
+    '</div>';
+  expect(calculator.getPercentageValue('dc-wine-range')).toBe(0.14);
+});
+
 test('determine number of servings required for zero hours', () => {
   expect(calculator.calculateServes(2, 0, 150, 2)).toBe(0);
 });
@@ -185,216 +201,221 @@ test('calculate the count of remaining preferences that are unlocked when all ar
 
     expect(calculator.getAvailablePreferenceCount(['dc-spirits-range', 'dc-beer-range'])).toBe(0);
 });
-// test('find the active drink preferences when preferences is not an array', () => {
-//   expect(calculator.getSelectedPreferences('not an array')).toEqual([]);
-// });
 
-// test('find the active drink preferences when preferences is an empty array', () => {
-//   expect(calculator.getSelectedPreferences([])).toEqual([]);
-// });
-
-// test('find the active drink preferences when preference options are all set to false', () => {
-//   var obj = [{'red-wine': false}, {'white-wine': false}, {'champagne': false}];
-//   expect(calculator.getSelectedPreferences(obj)).toEqual([]);
-// });
-
-// test('find the active drink preferences when some preference options are set to true', () => {
-//   var obj = [{'red-wine': false}, {'white-wine': true}, {'champagne': false}];
-//   expect(calculator.getSelectedPreferences(obj)).toEqual([{'white-wine': true}]);
-// });
-
-// test('find the active drink preferences when preference options are all set to true', () => {
-//   var obj = [{'red-wine': true}, {'white-wine': true}, {'champagne': true}];
-//   expect(calculator.getSelectedPreferences(obj)).toEqual([{'red-wine': true}, {'white-wine': true}, {'champagne': true}]);
-// });
-
-test('determine number of wine bottles required when zero required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateWineBottles(0, 2)).toBe(0);
+test('determine count of liquor and sub-types required when no matches on the container id', () => {
+  document.body.innerHTML = '<details id="dc-wine-types">'+
+      '<div><input type="checkbox" id="dc-red-wine" name="dc-wine-preference" value="red-wine" data-parent-id="dc-wine-range"/></div>'+
+      '<div><input type="checkbox" id="dc-white-wine" name="dc-wine-preference" value="white-wine" data-parent-id="dc-wine-range"/></div>'+
+    '</details>';
+  var liquorType = {count: 0};
+  calculator.calculateLiquorTypeCount('unknown', 'input[data-parent-id]', liquorType);
+  expect(liquorType.count).toBe(0);
+  expect(liquorType['dc-red-wine-is-required']).toBeUndefined();
+  expect(liquorType['dc-white-wine-is-required']).toBeUndefined();
 });
 
-test('determine number of wine bottles required when less than one bottle required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateWineBottles(1, 1)).toBe(1);
+test('determine count of liquor and sub-types required when no matches on query string', () => {
+  document.body.innerHTML = '<details id="dc-wine-types">'+
+      '<div><input type="checkbox" id="dc-red-wine" name="dc-wine-preference" value="red-wine" data-parent-id="dc-wine-range"/></div>'+
+      '<div><input type="checkbox" id="dc-white-wine" name="dc-wine-preference" value="white-wine" data-parent-id="dc-wine-range"/></div>'+
+    '</details>';
+  var liquorType = {count: 0};
+  calculator.calculateLiquorTypeCount('dc-wine-types', 'input[data-unknown]', liquorType);
+  expect(liquorType.count).toBe(0);
+  expect(liquorType['dc-red-wine-is-required']).toBeUndefined();
+  expect(liquorType['dc-white-wine-is-required']).toBeUndefined();
 });
 
-test('determine number of wine bottles required when exactly one bottle required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateWineBottles(2, 2.5)).toBe(1);
+test('determine count of liquor and sub-types required when all types are not set', () => {
+  document.body.innerHTML = '<details id="dc-wine-types">'+
+      '<div><input type="checkbox" id="dc-red-wine" name="dc-wine-preference" value="red-wine" data-parent-id="dc-wine-range"/></div>'+
+      '<div><input type="checkbox" id="dc-white-wine" name="dc-wine-preference" value="white-wine" data-parent-id="dc-wine-range"/></div>'+
+    '</details>';
+  var liquorType = {count: 0};
+  calculator.calculateLiquorTypeCount('dc-wine-types', 'input[data-parent-id]', liquorType);
+  expect(liquorType.count).toBe(0);
+  expect(liquorType['dc-red-wine-is-required']).toBe(false);
+  expect(liquorType['dc-white-wine-is-required']).toBe(false);
 });
 
-test('determine number of wine bottles required when more than one bottle required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateWineBottles(5, 3)).toBe(3);
+test('determine count of liquor and sub-types required when all types are set', () => {
+  document.body.innerHTML = '<details id="dc-wine-types">'+
+      '<div><input type="checkbox" id="dc-red-wine" name="dc-wine-preference" value="red-wine" data-parent-id="dc-wine-range" checked/></div>'+
+      '<div><input type="checkbox" id="dc-white-wine" name="dc-wine-preference" value="white-wine" data-parent-id="dc-wine-range" checked/></div>'+
+    '</details>';
+  var liquorType = {count: 0};
+  calculator.calculateLiquorTypeCount('dc-wine-types', 'input[data-parent-id]', liquorType);
+  expect(liquorType.count).toBe(2);
+  expect(liquorType['dc-red-wine-is-required']).toBe(true);
+  expect(liquorType['dc-white-wine-is-required']).toBe(true);
 });
 
-test('determine number of wine cases required when more than one case required with 100%', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-    expect(calculator.calculateWineBottles(5, 3)).toBe(3);
-  });
-
-test('determine number of wine cases required when more than one case required with less than 100%', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="50"/>' +
-      '</div>';
-  expect(calculator.calculateWineBottles(5, 3)).toBe(2);
+test('determine count of liquor and sub-types required when some types are set', () => {
+  document.body.innerHTML = '<details id="dc-wine-types">'+
+      '<div><input type="checkbox" id="dc-red-wine" name="dc-wine-preference" value="red-wine" data-parent-id="dc-wine-range" checked/></div>'+
+      '<div><input type="checkbox" id="dc-white-wine" name="dc-wine-preference" value="white-wine" data-parent-id="dc-wine-range"/></div>'+
+    '</details>';
+  var liquorType = {count: 0};
+  calculator.calculateLiquorTypeCount('dc-wine-types', 'input[data-parent-id]', liquorType);
+  expect(liquorType.count).toBe(1);
+  expect(liquorType['dc-red-wine-is-required']).toBe(true);
+  expect(liquorType['dc-white-wine-is-required']).toBe(false);
 });
 
-test('determine number of wine bottles required when zero percentage', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="0"/>' +
-      '</div>';
-  expect(calculator.calculateWineBottles(10, 2)).toBe(0);
+test('determine the total liquor and sub-types of units required when liquor type count is less than zero', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: -1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
+  expect(results['dc-wine-results-total']).toBe(1);
+  expect(results['dc-wine-results-red-wine']).toBe(0);
+  expect(results['dc-wine-results-white-wine']).toBe(0);
 });
 
-test('determine number of beer cases required when zero required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-beer-range" name="dc-beer-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateBeerCases(0, 2)).toBe(0);
+test('determine the total liquor and sub-types of units required when liquor type count is zero', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: 0, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
+  expect(results['dc-wine-results-total']).toBe(1);
+  expect(results['dc-wine-results-red-wine']).toBe(0);
+  expect(results['dc-wine-results-white-wine']).toBe(0);
 });
 
-test('determine number of beer cases required when less than one case required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-beer-range" name="dc-beer-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateBeerCases(12, 1)).toBe(1);
+test('determine the total liquor and sub-types of units required when container id does not exist', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
+  var results = calculator.calculateUnitResults('unknown', 'output', liquorType, 50, 1);
+  expect(results['dc-wine-results-total']).toBeUndefined();
+  expect(results['dc-wine-results-red-wine']).toBeUndefined();
+  expect(results['dc-wine-results-white-wine']).toBeUndefined();
 });
 
-test('determine number of beer cases required when exactly one case required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-beer-range" name="dc-beer-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateBeerCases(8, 2)).toBe(1);
+test('determine the total liquor and sub-types of units required when no matches on query string', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
+  var results = calculator.calculateUnitResults('dc-wine-results', 'unknown', liquorType, 50, 1);
+  expect(results['dc-wine-results-total']).toBe(1);
+  expect(results['dc-wine-results-red-wine']).toBeUndefined();
+  expect(results['dc-wine-results-white-wine']).toBeUndefined();
 });
 
-test('determine number of beer cases required when more than one case required with 100%', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-beer-range" name="dc-beer-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateBeerCases(16, 2.5)).toBe(3);
+test('determine the total liquor and sub-types of units required when percentage is less than zero', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, -1, 1);
+  expect(results['dc-wine-results-total']).toBe(1);
+  expect(results['dc-wine-results-red-wine']).toBeUndefined();
+  expect(results['dc-wine-results-white-wine']).toBeUndefined();
 });
 
-test('determine number of beer cases required when more than one case required with less than 100%', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-beer-range" name="dc-beer-range" type="range" min="0" max="100" value="50"/>' +
-      '</div>';
-  expect(calculator.calculateBeerCases(16, 2.5)).toBe(2);
+test('determine the total liquor and sub-types of units required when percentage is zero', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 0, 1);
+  expect(results['dc-wine-results-total']).toBe(1);
+  expect(results['dc-wine-results-red-wine']).toBeUndefined();
+  expect(results['dc-wine-results-white-wine']).toBeUndefined();
 });
 
-test('determine number of beer bottles required when zero percentage', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-beer-range" name="dc-beer-range" type="range" min="0" max="100" value="0"/>' +
-      '</div>';
-  expect(calculator.calculateBeerCases(10, 2)).toBe(0);
+test('determine the total liquor and sub-types of units required when units less than zero', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, -1);
+  expect(results['dc-wine-results-total']).toBe(-1);
+  expect(results['dc-wine-results-red-wine']).toBe(0);
+  expect(results['dc-wine-results-white-wine']).toBe(0);
 });
 
-test('determine number of spirits bottles required when zero required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateSpiritsBottles(0, 2)).toBe(0);
+test('determine the total liquor and sub-types of units required when units are zero', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 0);
+  expect(results['dc-wine-results-total']).toBe(0);
+  expect(results['dc-wine-results-red-wine']).toBe(0);
+  expect(results['dc-wine-results-white-wine']).toBe(0);
 });
 
-test('determine number of spirits bottles required when less than one bottle required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateSpiritsBottles(1, 1)).toBe(1);
+test('determine the total liquor and sub-types of units required when liquor option types are not set', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: 1};
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
+  expect(results['dc-wine-results-total']).toBe(1);
+  expect(results['dc-wine-results-red-wine']).toBe(0);
+  expect(results['dc-wine-results-white-wine']).toBe(0);
 });
 
-test('determine number of spirits bottles required when exactly one bottle required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateSpiritsBottles(2, 2.5)).toBe(1);
+test('determine the total liquor and sub-types of units required when liquor option types are not required', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
+  expect(results['dc-wine-results-total']).toBe(1);
+  expect(results['dc-wine-results-red-wine']).toBe(0);
+  expect(results['dc-wine-results-white-wine']).toBe(0);
 });
 
-test('determine number of spirits bottles required when more than one bottle required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateSpiritsBottles(10, 5)).toBe(3);
+test('determine the total liquor and sub-types of units required when liquor option types are all required', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: 1, "dc-red-wine-is-required": true, "dc-white-wine-is-required": true};
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
+  expect(results['dc-wine-results-total']).toBe(2);
+  expect(results['dc-wine-results-red-wine']).toBe(1);
+  expect(results['dc-wine-results-white-wine']).toBe(1);
 });
 
-test('determine number of spirits cases required when more than one case required with 100%', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateSpiritsBottles(10, 5)).toBe(3);
-});
-
-test('determine number of spirits cases required when more than one case required with less than 100%', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="50"/>' +
-      '</div>';
-  expect(calculator.calculateSpiritsBottles(10, 5)).toBe(2);
-});
-
-test('determine number of spirits bottles required when zero percentage', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="0"/>' +
-      '</div>';
-  expect(calculator.calculateSpiritsBottles(10, 2)).toBe(0);
-});
-
-test('determine number of champagne bottles required when zero required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateChampagneBottles(0, 2)).toBe(0);
-});
-
-test('determine number of champagne bottles required when less than one bottle required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateChampagneBottles(1, 1)).toBe(1);
-});
-
-test('determine number of champagne bottles required when exactly one bottle required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateChampagneBottles(2, 2)).toBe(1);
-});
-
-test('determine number of champagne bottles required when more than one bottle required', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateChampagneBottles(4, 3)).toBe(3);
-});
-
-test('determine number of champagne cases required when more than one case required with 100%', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="100"/>' +
-      '</div>';
-  expect(calculator.calculateChampagneBottles(4, 3)).toBe(3);
-});
-
-test('determine number of champagne cases required when more than one case required with less than 100%', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="50"/>' +
-      '</div>';
-  expect(calculator.calculateChampagneBottles(4, 3)).toBe(2);
-});
-
-test('determine number of champagne bottles required when zero percentage', () => {
-  document.body.innerHTML = '<div>' +
-      '<input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="0"/>' +
-      '</div>';
-  expect(calculator.calculateChampagneBottles(10, 2)).toBe(0);
+test('determine the total liquor and sub-types of units required when partial liquor option types are required', () => {
+  document.body.innerHTML = '<dl id="dc-wine-results">'+
+    '<dt><output id="dc-wine-results-total" for="dc-guests dc-duration" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>'+
+    '<dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>'+
+    '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
+    '</dl>';
+  var liquorType = {count: 1, "dc-red-wine-is-required": true, "dc-white-wine-is-required": false};
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
+  expect(results['dc-wine-results-total']).toBe(1);
+  expect(results['dc-wine-results-red-wine']).toBe(1);
+  expect(results['dc-wine-results-white-wine']).toBe(0);
 });
 
 test('update the value of the range field when balance value is NaN', () => {
@@ -441,24 +462,3 @@ test('update the value of the range field when balance value is greater than zer
   calculator.updateRangeOutput(input, output,1)
   expect(parseInt(output.value)).toBe(30);
 });
-
-// test('determine number of beer servings required for 5 hours', () => {
-//   expect(calculator.calculateBeerServes(0, 0)).toBe(5);
-// });
-
-// test('determine number of beer servings required for 10 hours', () => {
-//   expect(calculator.calculateBeerServes(0, 0)).toBe(10);
-// });
-
-
-// test('determine number of beer servings required for 1 guest', () => {
-//   expect(calculator.calculateBeerServes(0, 0)).toBe(10);
-// });
-
-// test('determine number of beer servings required for 10 guests', () => {
-//   expect(calculator.calculateBeerServes(0, 0)).toBe(10);
-// });
-
-// test('determine number of beer servings required for 100 guests', () => {
-//   expect(calculator.calculateBeerServes(0, 0)).toBe(10);
-// });
