@@ -1,6 +1,5 @@
 'use strict';
 
-const MILLISECONDS_PER_HOUR = 3600000;
 const STANDARD_DRINKS = Object.freeze({ 'wine': 150, 'beer': 330, 'spirits': 30, 'champagne': 150 });
 const STANDARD_BOTTLE_SIZE = Object.freeze({ 'wine': 750, 'beer': 7920, 'spirits': 750, 'champagne': 750 });
 // The number of drinks per hour for a liquor that one person can consume
@@ -164,8 +163,10 @@ function setPreferences(inputId, output) {
   });
 }
 
-function getHours(durationTicks) {
-  return durationTicks/MILLISECONDS_PER_HOUR;
+function getHours() {
+  var hours = parseInt(document.getElementById('dc-duration-hours').value);
+  var minutes = parseInt(document.getElementById('dc-duration-minutes').value);
+  return hours + (minutes/60);
 }
 
 function setResults(results) {
@@ -176,18 +177,18 @@ function setResults(results) {
 
 function calculateDrinks() {
   var guests = document.getElementById('dc-guests').valueAsNumber;
-  var hours = getHours(document.getElementById('dc-duration').valueAsNumber);
+  var hours = getHours();
 
-  var results = calculateWineBottles(guests,hours);
+  var results = calculateWineBottles(guests, hours);
   setResults(results);
 
-  results = calculateSpiritsBottles(guests,hours);
+  results = calculateSpiritsBottles(guests, hours);
   setResults(results);
 
-  results = calculateChampagneBottles(guests,hours);
+  results = calculateChampagneBottles(guests, hours);
   setResults(results);
 
-  results = calculateBeerCases(guests,hours)
+  results = calculateBeerCases(guests, hours);
   setResults(results);
 
   return false;
@@ -195,6 +196,7 @@ function calculateDrinks() {
 
 module.exports = {
   calculateServes: calculateServes,
+  getHours: getHours,
   getOtherPreferences: getOtherPreferences,
   getAvailablePreferenceCount: getAvailablePreferenceCount,
   getPercentageValue: getPercentageValue,

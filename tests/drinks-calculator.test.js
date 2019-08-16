@@ -2,6 +2,30 @@
 
 const calculator = require('../js/drinks-calculator.js');
 
+test('determine number of hours value when hours and minutes are zero', () => {
+  document.body.innerHTML = '<div>' +
+    '<input id="dc-duration-hours" name="dc-duration-hours" type="number" min="1" max="10" step="1" required value="0"/>' +
+    '<input id="dc-duration-minutes" name="dc-duration-minutes" type="number" min="0" max="30" step="30" required value="0"/>' +
+    '</div>';
+  expect(calculator.getHours()).toBe(0);
+});
+
+test('determine number of hours value when hours set and minutes are zero', () => {
+  document.body.innerHTML = '<div>' +
+    '<input id="dc-duration-hours" name="dc-duration-hours" type="number" min="1" max="10" step="1" required value="1"/>' +
+    '<input id="dc-duration-minutes" name="dc-duration-minutes" type="number" min="0" max="30" step="30" required value="0"/>' +
+    '</div>';
+  expect(calculator.getHours()).toBe(1);
+});
+
+test('determine number of hours value when hours set and minutes are 30', () => {
+  document.body.innerHTML = '<div>' +
+    '<input id="dc-duration-hours" name="dc-duration-hours" type="number" min="1" max="10" step="1" required value="1"/>' +
+    '<input id="dc-duration-minutes" name="dc-duration-minutes" type="number" min="0" max="30" step="30" required value="30"/>' +
+    '</div>';
+  expect(calculator.getHours()).toBe(1.5);
+});
+
 test('determine percentage value when element does not exist', () => {
   document.body.innerHTML = '<div>' +
     '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="14"/>' +
