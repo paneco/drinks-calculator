@@ -191,19 +191,26 @@ function calculateDrinks() {
   results = calculateBeerCases(guests, hours);
   setResults(results);
 
+  var resultsElement = document.getElementById('dc-calculated-results');
+  resultsElement.style.display = 'block';
+
   return false;
 }
 
-module.exports = {
-  calculateServes: calculateServes,
-  getHours: getHours,
-  getOtherPreferences: getOtherPreferences,
-  getAvailablePreferenceCount: getAvailablePreferenceCount,
-  getPercentageValue: getPercentageValue,
-  updateRangeOutput: updateRangeOutput,
-  getRemainderSum: getRemainderSum,
-  getPreferenceValue: getPreferenceValue,
-  getVariableBalance: getVariableBalance,
-  calculateLiquorTypeCount: calculateLiquorTypeCount,
-  calculateUnitResults: calculateUnitResults
+try {
+  module.exports = {
+    calculateServes: calculateServes,
+    getHours: getHours,
+    getOtherPreferences: getOtherPreferences,
+    getAvailablePreferenceCount: getAvailablePreferenceCount,
+    getPercentageValue: getPercentageValue,
+    updateRangeOutput: updateRangeOutput,
+    getRemainderSum: getRemainderSum,
+    getPreferenceValue: getPreferenceValue,
+    getVariableBalance: getVariableBalance,
+    calculateLiquorTypeCount: calculateLiquorTypeCount,
+    calculateUnitResults: calculateUnitResults
+  }
+} catch (error) {
+  console.info("error exporting modules: \n\t"+error);  
 }
