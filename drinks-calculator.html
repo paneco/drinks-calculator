@@ -1,0 +1,181 @@
+<script src="./js/drinks-calculator.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/drinks-calculator.css"/>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-12/css/fontawesome.min.css"/> -->
+
+<datalist id="dc-tickmarks">
+  <option value="0" label="0%">
+  <option value="10">
+  <option value="20">
+  <option value="30">
+  <option value="40">
+  <option value="50" label="50%">
+  <option value="60">
+  <option value="70">
+  <option value="80">
+  <option value="90">
+  <option value="100" label="100%">
+</datalist>
+<article>
+  <h2 id="dc-widget-heading">Drinks Calculator</h2>
+  <p>
+    Use this event planning calculator to accurately plan how many drinks you will need for your 
+    [<span class="item-1">Party</span>
+    <span class="item-2">Wedding</span>
+    <span class="item-3">BBQ</span>
+    <span class="item-4">Event</span>]
+    <!-- <div class="typing-slider">
+      [<span>Party</span>
+      <span>Wedding</span>
+      <span>BBQ</span>]
+    </div> -->
+    <!-- [<div id="slider">
+      <ul>
+        <li><span class="slider-container"><p>Party</p></span></li>
+        <li><span class="slider-container"><p>Wedding</p></span></li>
+        <li><span class="slider-container"><p>BBQ</p></span></li>
+        <li><span class="slider-container"><p>Event</p></span></li>
+      </ul>
+    </div>] -->
+  </p>
+</article>
+<form id="dc-form" method="get" onsubmit="calculateDrinks(); return false">
+  <fieldset id="dc-container">
+    <legend>Drinks Calculator</legend>
+    <section>
+      <h3>Details of your event:</h3>
+      <div>
+        <label id="dc-guests-label" for="dc-guests">Number of guests:</label>
+        <input id="dc-guests" name="dc-guests" type="number" min="0" placeholder="10" required value="4"/>
+      </div>
+      <div id="dc-duration">
+        <input id="dc-duration-hours" name="dc-duration-hours" type="number" min="1" max="10" step="1" required value="1"/>
+        <label id="dc-duration-hours-label" for="dc-duration-hours" >Hours:</label>
+        <input id="dc-duration-minutes" name="dc-duration-minutes" type="number" min="0" max="30" step="30" required value="0"/>
+        <label id="dc-duration-minutes-label" for="dc-duration-minutes" >Minutes:</label>
+      </div>
+    </section>
+    <section>
+      <h3>Choose your alcohol preferences:</h3>
+      <fieldset id="dc-wine-preferences">
+        <legend>Choose your wine preferences</legend>
+        <div>
+          <label id="dc-wine-range-label" for="dc-wine-range" >Wine:</label>
+          <input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" data-dc-liquor-preference="wine"
+            oninput="setPreferences(this.id, getElementById('dc-wine-range-output'))"/>
+          <input id="dc-wine-range-is-locked" name="dc-wine-range-is-locked" type="checkbox" class="checkbox-lock"/>
+          <output id="dc-wine-range-output" for="dc-wine-range" name="dc-wine-range-output"></output>%
+          <span class="icon lock"></span>
+          <i class="fa fa-lock-open"></i>
+        </div>
+        <details id="dc-wine-types">
+          <summary>Types of Wine:</summary>
+          <div>
+            <input type="checkbox" id="dc-red-wine" name="dc-wine-preference" value="red-wine" data-parent-id="dc-wine-range"/>
+            <label id="dc-red-wine-label" for="dc-red-wine">Red Wine</label>
+          </div>
+          <div>
+            <input type="checkbox" id="dc-white-wine" name="dc-wine-preference" value="white-wine" data-parent-id="dc-wine-range"/>
+            <label id="dc-white-wine-label" for="dc-white-wine">White Wine</label>
+          </div>
+        </details>
+      </fieldset>
+      <fieldset id="dc-beer-preferences">
+        <legend>Choose your Beer preferences</legend>
+        <div>
+          <label id="dc-beer-label" for="dc-beer-range" >Beer:</label>
+          <input id="dc-beer-range" name="dc-beer-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" data-dc-liquor-preference="beer"
+            oninput="setPreferences(this.id, getElementById('dc-beer-range-output'))"/>
+          <input id="dc-beer-range-is-locked" name="dc-beer-range-is-locked" type="checkbox" class="checkbox-lock"/>
+          <output id="dc-beer-range-output" for="dc-beer-range" name="dc-beer-range-output"></output>%
+        </div>
+        <details id="dc-beer-types">
+          <summary>Types of Beer:</summary>
+          <div>
+            <input type="checkbox" id="dc-lager" name="dc-beer-preference" value="lager" data-parent-id="dc-beer-range"/>
+            <label id="dc-lager-label" for="dc-lager">Lager</label>
+          </div>
+          <div>
+            <input type="checkbox" id="dc-ale" name="dc-beer-preference" value="ale" data-parent-id="dc-beer-range"/>
+            <label id="dc-ale-label" for="dc-ale">Ale</label>
+          </div>
+        </details>
+      </fieldset>
+      <fieldset id="dc-spirits-preferences">
+        <legend>Choose your Spirits preferences</legend>
+        <div>
+          <label id="dc-spirits-label" for="dc-spirits-range" >Spirits:</label>
+          <input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" data-dc-liquor-preference="spirits"
+            oninput="setPreferences(this.id, getElementById('dc-spirits-range-output'))"/>
+          <input id="dc-spirits-range-is-locked" name="dc-spirits-range-is-locked" type="checkbox" class="checkbox-lock"/>
+          <output id="dc-spirits-range-output" for="dc-spirits-range" name="dc-spirits-range-output"></output>%
+        </div>
+        <details id="dc-spirits-types">
+          <summary>Types of Spirits:</summary>
+          <div>
+            <input type="checkbox" id="dc-whisky" name="dc-spirits-preference" value="whisky" data-parent-id="dc-spirits-range"/>
+            <label id="dc-whisky-label" for="dc-whisky">Whisky</label>
+          </div>
+          <div>
+            <input type="checkbox" id="dc-vodka" name="dc-spirits-preference" value="vodka" data-parent-id="dc-spirits-range"/>
+            <label id="dc-vodka-label" for="dc-vodka">Vodka</label>
+          </div>
+          <div>
+            <input type="checkbox" id="dc-cognac" name="dc-spirits-preference" value="cognac" data-parent-id="dc-spirits-range"/>
+            <label id="dc-cognac-label" for="dc-cognac">Cognac</label>
+          </div>
+          <div>
+            <input type="checkbox" id="dc-rum" name="dc-spirits-preference" value="rum" data-parent-id="dc-spirits-range"/>
+            <label id="dc-rum-label" for="dc-rum">Rum</label>
+          </div>
+          <div>
+            <input type="checkbox" id="dc-gin" name="dc-spirits-preference" value="gin" data-parent-id="dc-spirits-range"/>
+            <label id="dc-gin-label" for="dc-gin">Gin</label>
+          </div>
+          <div>
+            <input type="checkbox" id="dc-tequila" name="dc-spirits-preference" value="tequila" data-parent-id="dc-spirits-range"/>
+            <label id="dc-tequila-label" for="dc-tequila">Tequila</label>
+          </div>
+        </details>
+      </fieldset>
+      <fieldset id="dc-champagne-preferences">
+        <legend>Choose your Champagne preferences</legend>
+        <div>
+          <label id="dc-champagne-label" for="dc-champagne-range" >Champagne:</label>
+          <input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" data-dc-liquor-preference="champagne"
+            oninput="setPreferences(this.id, getElementById('dc-champagne-range-output'))"/>
+          <input id="dc-champagne-range-is-locked" name="dc-champagne-range-is-locked" type="checkbox" class="checkbox-lock"/>
+          <output id="dc-champagne-range-output" for="dc-champagne-range" name="dc-champagne-range-output"></output>%
+        </div>
+      </fieldset>
+    </section>
+    <div>
+      <input id="dc-submit-button" type="submit" value="Calculate"/>
+    </div>
+  </fieldset>
+  <section id="dc-calculated-results">
+    <h3>Results</h3>
+    <dl id="dc-wine-results">
+      <dt><output id="dc-wine-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>
+      <dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>
+      <dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>
+    </dl>
+    <dl id="dc-beer-results">
+      <dt><output id="dc-beer-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-beer-results-total">0</output> Cases (24 Bottles) of Beer</dt>
+      <dd><output id="dc-beer-results-lager" for="dc-lager" name="dc-beer-results-lager">0</output> Lager</dd>
+      <dd><output id="dc-beer-results-ale" for="dc-ale" name="dc-beer-results-ale">0</output> Ale</dd>
+    </dl>
+    <dl id="dc-spirits-results">
+      <dt><output id="dc-spirits-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-spirits-results-total">0</output> Bottles (750ml) of Spirits</dt>
+      <dd><output id="dc-spirits-results-whisky" for="dc-whisky" name="dc-spirits-results-whisky">0</output> Whisky</dd>
+      <dd><output id="dc-spirits-results-vodka" for="dc-vodka" name="dc-spirits-results-vodka">0</output> Vodka</dd>
+      <dd><output id="dc-spirits-results-cognac" for="dc-cognac" name="dc-spirits-results-cognac">0</output> Cognac</dd>
+      <dd><output id="dc-spirits-results-rum" for="dc-rum" name="dc-spirits-results-rum">0</output> Rum</dd>
+      <dd><output id="dc-spirits-results-gin" for="dc-gin" name="dc-spirits-results-gin">0</output> Gin</dd>
+      <dd><output id="dc-spirits-results-tequila" for="dc-tequila" name="dc-spirits-results-tequila">0</output> Tequila</dd>
+    </dl>
+    <dl id="dc-champagne-results">
+      <dt><output id="dc-champagne-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-champagne-results-total">0</output>  Bottles (750ml) of Champagne</dt>
+      <dd><output id="dc-champagne-results-champagne" for="dc-champagne-results" name="dc-champagne-results-champagne">0</output> Champagne</dd>
+    </dl>
+  </section>
+</form>
