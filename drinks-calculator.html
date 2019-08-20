@@ -15,32 +15,28 @@
   <option value="90">
   <option value="100" label="100%">
 </datalist>
-<article>
-  <h2 id="dc-widget-heading">Drinks Calculator</h2>
-  <p class="dc-flex-container">
-    Use this event planning calculator to accurately plan how many drinks you will need for your 
-    [<span class="item-1">Party</span>
-    <span class="item-2">Wedding</span>
-    <span class="item-3">BBQ</span>
-    <span class="item-1">Event</span>]
-    
-    <!-- <div class="typing-slider">
-      [<span>Party</span>
-      <span>Wedding</span>
-      <span>BBQ</span>]
-    </div> -->
-    <!-- [<div id="slider">
+<h2 id="dc-widget-heading">Drinks Calculator</h2>
+<div class="dc-intro-container">
+  <h3>Planning a party</h3>
+  <div class="dc-intro-text dc-opening">
+      <span>Use this drinks calculator to accurately plan how many drinks you will need for your [</span>
+  </div>
+  <div class="dc-slider-container">
+    <div class="mask">
       <ul>
-        <li><span class="slider-container"><p>Party</p></span></li>
-        <li><span class="slider-container"><p>Wedding</p></span></li>
-        <li><span class="slider-container"><p>BBQ</p></span></li>
-        <li><span class="slider-container"><p>Event</p></span></li>
+        <li class="dc-slider-effect1">Party</li>
+        <li class="dc-slider-effect2">Wedding</li>
+        <li class="dc-slider-effect3">BBQ</li>
+        <li class="dc-slider-effect4">Event</li>
+        <li class="dc-slider-effect5">Corporate</li>
       </ul>
-    </div>] -->
-  </p>
-</article>
-<form id="dc-form" method="get" onsubmit="calculateDrinks(); return false">
-  <fieldset id="dc-container">
+    </div>
+  </div>
+  <div class="dc-intro-text dc-closing"><span>]</span></div>
+</div>
+
+<form id="dc-form" method="get" onsubmit="calculateDrinks(); return false" class="dc-form-input">
+  <fieldset id="dc-input-container">
     <legend>Drinks Calculator</legend>
     <section>
       <h3>Details of your event:</h3>
@@ -57,7 +53,7 @@
     </section>
     <section>
       <h3>Choose your alcohol preferences:</h3>
-      <fieldset id="dc-wine-preferences">
+      <fieldset id="dc-wine-preferences" class="dc-liquor-preferences">
         <legend>Choose your wine preferences</legend>
         <div>
           <label id="dc-wine-range-label" for="dc-wine-range" >Wine:</label>
@@ -80,7 +76,7 @@
           </div>
         </details>
       </fieldset>
-      <fieldset id="dc-beer-preferences">
+      <fieldset id="dc-beer-preferences" class="dc-liquor-preferences">
         <legend>Choose your Beer preferences</legend>
         <div>
           <label id="dc-beer-label" for="dc-beer-range" >Beer:</label>
@@ -101,7 +97,7 @@
           </div>
         </details>
       </fieldset>
-      <fieldset id="dc-spirits-preferences">
+      <fieldset id="dc-spirits-preferences" class="dc-liquor-preferences">
         <legend>Choose your Spirits preferences</legend>
         <div>
           <label id="dc-spirits-label" for="dc-spirits-range" >Spirits:</label>
@@ -138,7 +134,7 @@
           </div>
         </details>
       </fieldset>
-      <fieldset id="dc-champagne-preferences">
+      <fieldset id="dc-champagne-preferences" class="dc-liquor-preferences">
         <legend>Choose your Champagne preferences</legend>
         <div>
           <label id="dc-champagne-label" for="dc-champagne-range" >Champagne:</label>
