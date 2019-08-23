@@ -1,3 +1,6 @@
+.dc-main-container {
+  margin: 0.7em 0.5em 1em 0.5em;
+}
 
 .dc-results {
   display: none;
@@ -11,6 +14,20 @@
 
 .dc-form-input {
   margin-top: 1em;
+}
+
+.dc-form-fields {
+  width: 100%;
+}
+
+.dc-form-button{
+  margin: auto;
+  display: block;
+}
+
+.dc-event-details {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .dc-liquor-preferences {
