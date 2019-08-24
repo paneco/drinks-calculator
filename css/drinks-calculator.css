@@ -1,5 +1,6 @@
 .dc-main-container {
-  margin: 0.7em 0.5em 1em 0.5em;
+  /* margin: 0.7em 0.5em 1em 0.5em; */
+  margin: 0.2em;
 }
 
 .dc-results {
@@ -12,33 +13,20 @@
   text-align: right;
 }
 
-.dc-form-input {
-  margin-top: 1em;
-}
-
 .dc-form-fields {
-  width: 100%;
-}
-
-.dc-form-button{
-  margin: auto;
-  display: block;
+  margin-top: 0.4em;
 }
 
 .dc-event-details {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
 }
 
 .dc-liquor-preferences {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
 }
 
-.dc-intro-container {
-  display: inline;
-  font-size: medium;
-}
 .dc-intro-text {
   display: inline;
 }
