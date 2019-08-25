@@ -56,13 +56,13 @@
         <fieldset id="dc-wine-preferences" class="dc-liquor-preferences">
           <legend>Choose your wine preferences</legend>
           <div class="dc-preference-range-selector">
-            <label id="dc-wine-range-label" for="dc-wine-range" >Wine:</label>
-            <input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" data-dc-liquor-preference="wine"
+            <label id="dc-wine-range-label" for="dc-wine-range" class="dc-range-selector-label">Wine:</label>
+            <input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="wine"
               oninput="setPreferences(this.id, getElementById('dc-wine-range-output'))"/>
-            <input id="dc-wine-range-is-locked" name="dc-wine-range-is-locked" type="checkbox" class="checkbox-lock"/>
-            <output id="dc-wine-range-output" for="dc-wine-range" name="dc-wine-range-output"></output>%
-            <span class="icon lock"></span>
-            <i class="fa fa-lock-open"></i>
+            <div class="dc-range-selector-lock">
+              <input id="dc-wine-range-is-locked" name="dc-wine-range-is-locked" type="checkbox" class="checkbox-lock"/>
+              <output id="dc-wine-range-output" for="dc-wine-range" name="dc-wine-range-output">25</output>%
+            </div>
           </div>
           <details id="dc-wine-types">
             <summary>Types of Wine:</summary>
@@ -78,12 +78,14 @@
         </fieldset>
         <fieldset id="dc-beer-preferences" class="dc-liquor-preferences">
           <legend>Choose your Beer preferences</legend>
-          <div>
-            <label id="dc-beer-label" for="dc-beer-range" >Beer:</label>
-            <input id="dc-beer-range" name="dc-beer-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" data-dc-liquor-preference="beer"
+          <div class="dc-preference-range-selector">
+            <label id="dc-beer-label" for="dc-beer-range" class="dc-range-selector-label">Beer:</label>
+            <input id="dc-beer-range" name="dc-beer-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="beer"
               oninput="setPreferences(this.id, getElementById('dc-beer-range-output'))"/>
-            <input id="dc-beer-range-is-locked" name="dc-beer-range-is-locked" type="checkbox" class="checkbox-lock"/>
-            <output id="dc-beer-range-output" for="dc-beer-range" name="dc-beer-range-output"></output>%
+            <div class="dc-range-selector-lock">
+              <input id="dc-beer-range-is-locked" name="dc-beer-range-is-locked" type="checkbox" class="checkbox-lock"/>
+              <output id="dc-beer-range-output" for="dc-beer-range" name="dc-beer-range-output">25</output>%
+            </div>
           </div>
           <details id="dc-beer-types">
             <summary>Types of Beer:</summary>
@@ -99,12 +101,14 @@
         </fieldset>
         <fieldset id="dc-spirits-preferences" class="dc-liquor-preferences">
           <legend>Choose your Spirits preferences</legend>
-          <div>
-            <label id="dc-spirits-label" for="dc-spirits-range" >Spirits:</label>
-            <input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" data-dc-liquor-preference="spirits"
+          <div class="dc-preference-range-selector">
+            <label id="dc-spirits-label" for="dc-spirits-range" class="dc-range-selector-label">Spirits:</label>
+            <input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="spirits"
               oninput="setPreferences(this.id, getElementById('dc-spirits-range-output'))"/>
-            <input id="dc-spirits-range-is-locked" name="dc-spirits-range-is-locked" type="checkbox" class="checkbox-lock"/>
-            <output id="dc-spirits-range-output" for="dc-spirits-range" name="dc-spirits-range-output"></output>%
+            <div class="dc-range-selector-lock">
+              <input id="dc-spirits-range-is-locked" name="dc-spirits-range-is-locked" type="checkbox" class="checkbox-lock"/>
+              <output id="dc-spirits-range-output" for="dc-spirits-range" name="dc-spirits-range-output">25</output>%
+            </div>
           </div>
           <details id="dc-spirits-types">
             <summary>Types of Spirits:</summary>
@@ -136,12 +140,14 @@
         </fieldset>
         <fieldset id="dc-champagne-preferences" class="dc-liquor-preferences">
           <legend>Choose your Champagne preferences</legend>
-          <div>
-            <label id="dc-champagne-label" for="dc-champagne-range" >Champagne:</label>
-            <input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" data-dc-liquor-preference="champagne"
+          <div class="dc-preference-range-selector">
+            <label id="dc-champagne-label" for="dc-champagne-range" class="dc-range-selector-label">Champagne:</label>
+            <input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="champagne"
               oninput="setPreferences(this.id, getElementById('dc-champagne-range-output'))"/>
-            <input id="dc-champagne-range-is-locked" name="dc-champagne-range-is-locked" type="checkbox" class="checkbox-lock"/>
-            <output id="dc-champagne-range-output" for="dc-champagne-range" name="dc-champagne-range-output"></output>%
+            <div class="dc-range-selector-lock">
+              <input id="dc-champagne-range-is-locked" name="dc-champagne-range-is-locked" type="checkbox" class="checkbox-lock"/>
+              <output id="dc-champagne-range-output" for="dc-champagne-range" name="dc-champagne-range-output">25</output>%
+            </div>
           </div>
         </fieldset>
       </section>
