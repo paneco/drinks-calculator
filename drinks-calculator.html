@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="./css/drinks-calculator.css"/>
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-12/css/fontawesome.min.css"/> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-12/css/all.min.css"/>
 
 <main>
 <article id="dc-widget" class="dc-main-container">
@@ -54,9 +54,9 @@
       <section>
         <h3>Choose your alcohol preferences:</h3>
         <fieldset id="dc-wine-preferences" class="dc-liquor-preferences">
-          <legend>Choose your wine preferences</legend>
+          <legend>Wine Needs</legend>
           <div class="dc-preference-range-selector">
-            <label id="dc-wine-range-label" for="dc-wine-range" class="dc-range-selector-label">Wine:</label>
+            <label id="dc-wine-range-label" for="dc-wine-range" class="dc-range-selector-label"><span class="fas fa-wine-glass-alt"></span>&nbsp;Wine:</label>
             <input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="wine"
               oninput="setPreferences(this.id, getElementById('dc-wine-range-output'))"/>
             <div class="dc-range-selector-lock">
@@ -77,9 +77,9 @@
           </details>
         </fieldset>
         <fieldset id="dc-beer-preferences" class="dc-liquor-preferences">
-          <legend>Choose your Beer preferences</legend>
+          <legend>Beer Needs</legend>
           <div class="dc-preference-range-selector">
-            <label id="dc-beer-label" for="dc-beer-range" class="dc-range-selector-label">Beer:</label>
+            <label id="dc-beer-label" for="dc-beer-range" class="dc-range-selector-label"><span class="fas fa-beer"></span>&nbsp;Beer:</label>
             <input id="dc-beer-range" name="dc-beer-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="beer"
               oninput="setPreferences(this.id, getElementById('dc-beer-range-output'))"/>
             <div class="dc-range-selector-lock">
@@ -100,9 +100,9 @@
           </details>
         </fieldset>
         <fieldset id="dc-spirits-preferences" class="dc-liquor-preferences">
-          <legend>Choose your Spirits preferences</legend>
+          <legend>Spirits Needs</legend>
           <div class="dc-preference-range-selector">
-            <label id="dc-spirits-label" for="dc-spirits-range" class="dc-range-selector-label">Spirits:</label>
+            <label id="dc-spirits-label" for="dc-spirits-range" class="dc-range-selector-label"><span class="fas fa-glass-whiskey"></span>&nbsp;Spirits:</label>
             <input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="spirits"
               oninput="setPreferences(this.id, getElementById('dc-spirits-range-output'))"/>
             <div class="dc-range-selector-lock">
@@ -139,9 +139,9 @@
           </details>
         </fieldset>
         <fieldset id="dc-champagne-preferences" class="dc-liquor-preferences">
-          <legend>Choose your Champagne preferences</legend>
+          <legend>Champagne Needs</legend>
           <div class="dc-preference-range-selector">
-            <label id="dc-champagne-label" for="dc-champagne-range" class="dc-range-selector-label">Champagne:</label>
+            <label id="dc-champagne-label" for="dc-champagne-range" class="dc-range-selector-label"><span class="fas fa-wine-glass"></span>&nbsp;Champagne:</label>
             <input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="champagne"
               oninput="setPreferences(this.id, getElementById('dc-champagne-range-output'))"/>
             <div class="dc-range-selector-lock">
@@ -158,18 +158,19 @@
   </form>
   <section id="dc-calculated-results" class="dc-results">
     <h3>Results</h3>
+    <p>You'll need the following for your event:</p>
     <dl id="dc-wine-results">
-      <dt><output id="dc-wine-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>
+      <dt><span class="fas fa-wine-glass-alt"></span>&nbsp;<output id="dc-wine-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-wine-results-total">0</output> Bottles (750ml) of Wine</dt>
       <dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>
       <dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>
     </dl>
     <dl id="dc-beer-results">
-      <dt><output id="dc-beer-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-beer-results-total">0</output> Cases (24 Bottles) of Beer</dt>
+      <dt><span class="fas fa-beer"></span>&nbsp;<output id="dc-beer-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-beer-results-total">0</output> Cases (24 Bottles) of Beer</dt>
       <dd><output id="dc-beer-results-lager" for="dc-lager" name="dc-beer-results-lager">0</output> Lager</dd>
       <dd><output id="dc-beer-results-ale" for="dc-ale" name="dc-beer-results-ale">0</output> Ale</dd>
     </dl>
     <dl id="dc-spirits-results">
-      <dt><output id="dc-spirits-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-spirits-results-total">0</output> Bottles (750ml) of Spirits</dt>
+      <dt><span class="fas fa-glass-whiskey"></span>&nbsp;<output id="dc-spirits-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-spirits-results-total">0</output> Bottles (750ml) of Spirits</dt>
       <dd><output id="dc-spirits-results-whisky" for="dc-whisky" name="dc-spirits-results-whisky">0</output> Whisky</dd>
       <dd><output id="dc-spirits-results-vodka" for="dc-vodka" name="dc-spirits-results-vodka">0</output> Vodka</dd>
       <dd><output id="dc-spirits-results-cognac" for="dc-cognac" name="dc-spirits-results-cognac">0</output> Cognac</dd>
@@ -178,7 +179,7 @@
       <dd><output id="dc-spirits-results-tequila" for="dc-tequila" name="dc-spirits-results-tequila">0</output> Tequila</dd>
     </dl>
     <dl id="dc-champagne-results">
-      <dt><output id="dc-champagne-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-champagne-results-total">0</output>  Bottles (750ml) of Champagne</dt>
+      <dt><span class="fas fa-wine-glass"></span>&nbsp;<output id="dc-champagne-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-champagne-results-total">0</output>  Bottles (750ml) of Champagne</dt>
       <dd><output id="dc-champagne-results-champagne" for="dc-champagne-results" name="dc-champagne-results-champagne">0</output> Champagne</dd>
     </dl>
   </section>
