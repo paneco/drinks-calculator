@@ -42,13 +42,13 @@
         <h3>Details of your event:</h3>
         <div class="dc-event-details">
           <label id="dc-guests-label" for="dc-guests">Number of guests:</label>
-          <input id="dc-guests" name="dc-guests" type="number" min="0" placeholder="10" required value="4"/>
+          <input id="dc-guests" name="dc-guests" type="number" min="0" placeholder="10" required value="4" class="dc-number-field"/>
         </div>
         <div id="dc-duration" class="dc-event-details">
           <label id="dc-duration-hours-label" for="dc-duration-hours" >Hours:</label>
-          <input id="dc-duration-hours" name="dc-duration-hours" type="number" min="1" max="10" step="1" required value="1"/>
+          <input id="dc-duration-hours" name="dc-duration-hours" type="number" min="1" max="10" step="1" required value="1" class="dc-number-field"/>
           <label id="dc-duration-minutes-label" for="dc-duration-minutes" >Minutes:</label>
-          <input id="dc-duration-minutes" name="dc-duration-minutes" type="number" min="0" max="30" step="30" required value="0"/>
+          <input id="dc-duration-minutes" name="dc-duration-minutes" type="number" min="0" max="30" step="30" required value="0" class="dc-number-field"/>
         </div>
       </section>
       <section>
@@ -65,7 +65,7 @@
             </div>
           </div>
           <details id="dc-wine-types">
-            <summary>Types of Wine:</summary>
+            <summary>Types of Wine <span class="dc-instruction-text">(expand to choose)</span>:</summary>
             <div>
               <input type="checkbox" id="dc-red-wine" name="dc-wine-preference" value="red-wine" data-parent-id="dc-wine-range"/>
               <label id="dc-red-wine-label" for="dc-red-wine">Red Wine</label>
@@ -88,7 +88,7 @@
             </div>
           </div>
           <details id="dc-beer-types">
-            <summary>Types of Beer:</summary>
+            <summary>Types of Beer <span class="dc-instruction-text">(expand to choose)</span>:</summary>
             <div>
               <input type="checkbox" id="dc-lager" name="dc-beer-preference" value="lager" data-parent-id="dc-beer-range"/>
               <label id="dc-lager-label" for="dc-lager">Lager</label>
@@ -111,7 +111,7 @@
             </div>
           </div>
           <details id="dc-spirits-types">
-            <summary>Types of Spirits:</summary>
+            <summary>Types of Spirits <span class="dc-instruction-text">(expand to choose)</span>:</summary>
             <div>
               <input type="checkbox" id="dc-whisky" name="dc-spirits-preference" value="whisky" data-parent-id="dc-spirits-range"/>
               <label id="dc-whisky-label" for="dc-whisky">Whisky</label>
@@ -151,7 +151,7 @@
           </div>
         </fieldset>
       </section>
-      <div >
+      <div class="dc-form-buttons-block">
         <input id="dc-submit-button" type="submit" value="Calculate"/>
       </div>
     </fieldset>

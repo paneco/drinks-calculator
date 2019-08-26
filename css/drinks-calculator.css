@@ -1,5 +1,4 @@
 .dc-main-container {
-  /* margin: 0.7em 0.5em 1em 0.5em; */
   margin: 0.2em;
 }
 
@@ -13,8 +12,18 @@
   text-align: right;
 }
 
+.dc-instruction-text {
+  font-size: smaller;
+}
+
 .dc-form-fields {
   margin-top: 0.4em;
+}
+
+.dc-number-field {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
 }
 
 .dc-event-details {
@@ -27,6 +36,13 @@
   margin-bottom: 0.2em;
 }
 
+.dc-liquor-preferences legend {
+  padding: 0.2em 0.5em;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+}
+
 .dc-preference-range-selector {
   margin-top: 0.2em;
   margin-bottom: 0.2em;
@@ -34,17 +50,25 @@
   flex-wrap: wrap;
   align-items: center;
 }
+
 .dc-range-selector {
   width: 60%;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 0;
+  margin-right: 0;
+  flex-wrap: wrap;
 }
+
 .dc-range-selector-label {
-  width: 15%;
+  width: 19%;
   text-align: right;
   margin-right: 0.2em; 
 }
+
 .dc-range-selector-lock {
-  width: 20%;
-  align-content: left;
+  width: 18%;
+  justify-content: left;
   margin-left: 0.2em; 
 }
 
@@ -54,6 +78,12 @@
 
 .dc-closing {
   padding-left: 4.2em;
+}
+
+.dc-form-buttons-block {
+  margin-top: 1.5em;
+  display: flex;
+  justify-content: center;
 }
 
 .dc-slider-container {
