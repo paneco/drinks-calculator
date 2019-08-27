@@ -72,6 +72,19 @@
   margin-left: 0.2em; 
 }
 
+.dc-locked-checkbox input[type="checkbox"],
+.dc-locked-checkbox .checked {
+    display: none;
+}
+
+.dc-locked-checkbox input[type="checkbox"]:checked ~ .unchecked {
+    display: none;
+}
+
+.dc-locked-checkbox input[type="checkbox"]:checked ~ .checked {
+  display: inline-block;
+}
+
 .dc-intro-text {
   display: inline;
 }
