@@ -9,6 +9,7 @@
 .dc-powered-by {
   font-size: smaller;
   font-style: italic;
+  color: gray;
   text-align: right;
 }
 
@@ -91,6 +92,10 @@
 
 .dc-closing {
   padding-left: 4.2em;
+}
+
+.dc-results-dl dt {
+  font-weight: bolder;
 }
 
 .dc-form-buttons-block {
