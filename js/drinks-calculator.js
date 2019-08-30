@@ -14,7 +14,7 @@ function calculateUnits(guests, hours, percentage, standardDrinks, consumptionRa
 }
 
 function getPercentageValue(elementId) {
-  return document.getElementById(elementId)? parseInt(document.getElementById(elementId).value)/100: 0;
+  return document.getElementById(elementId)? parseInt(document.getElementById(elementId).value, 10)/100: 0;
 }
 
 function calculateLiquorTypeCount(containerId, selectorQuery, liquorType) {
@@ -88,12 +88,12 @@ function calculateServes(guests, hours, standardDrinks, rate) {
 }
 
 function updateRangeOutput(input, output, balance) {
-  var inputValue = parseInt(input.value);
+  var inputValue = parseInt(input.value, 10);
   if (balance && (balance < 0)) {
     inputValue = inputValue + balance;
   }
 
-  output.value = parseInt(inputValue);
+  output.value = parseInt(inputValue, 10);
 }
 
 function getOtherPreferences(elementId) {
@@ -107,7 +107,7 @@ function getRemainderSum(otherPreferences) {
     var prefElem = document.getElementById(preference);
     var isLockedElem = document.getElementById(preference+SUFFIX_IS_LOCKED);
     var isLocked = isLockedElem? isLockedElem.checked: false;
-    return sum + (prefElem && !isLocked? parseInt(prefElem.value): 0);
+    return sum + (prefElem && !isLocked? parseInt(prefElem.value, 10): 0);
   },0);
 }
 
@@ -151,7 +151,7 @@ function setPreferences(inputId, output) {
   // TODO: test this
   if (balance < 0) input.value = input.valueAsNumber + balance;
 
-  updateRangeOutput(input, output);
+  updateRangeOutput(input, output, balance);
 
   var otherAvailablePreferencesCount = getAvailablePreferenceCount(otherPreferences);
   otherPreferences.forEach(preference => {
@@ -159,13 +159,13 @@ function setPreferences(inputId, output) {
     var isLocked = document.getElementById(preference+SUFFIX_IS_LOCKED).checked;
     
     preferenceElement.value = getPreferenceValue(preferenceElement.value, remainderSum, balance, isLocked, otherAvailablePreferencesCount);
-    updateRangeOutput(preferenceElement, document.getElementById(preference+'-output'));
+    updateRangeOutput(preferenceElement, document.getElementById(preference+'-output'), balance);
   });
 }
 
 function getHours() {
-  var hours = parseInt(document.getElementById('dc-duration-hours').value);
-  var minutes = parseInt(document.getElementById('dc-duration-minutes').value);
+  var hours = parseInt(document.getElementById('dc-duration-hours').value, 10);
+  var minutes = parseInt(document.getElementById('dc-duration-minutes').value, 10);
   return hours + (minutes/60);
 }
 
