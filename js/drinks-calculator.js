@@ -141,7 +141,9 @@ function getAvailablePreferenceCount(otherPreferences) {
   }, 0);
 }
 
-// TODO: refactor to be more modular and testable
+/**
+ * TODO: refactor to be more modular and testable
+ */
 function setPreferences(inputId, output) {
   var input = document.getElementById(inputId);
   var otherPreferences = getOtherPreferences(inputId);
@@ -197,6 +199,7 @@ function calculateDrinks() {
   return false;
 }
 
+
 try {
   module.exports = {
     calculateServes: calculateServes,
@@ -214,3 +217,7 @@ try {
 } catch (error) {
   console.info("error exporting modules: \n\t"+error);  
 }
+
+// Store the functions in global propertyies referenced by a string for advanced compilations and minification
+window['setPreferences'] = setPreferences;
+window['calculateDrinks'] = calculateDrinks;

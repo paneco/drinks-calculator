@@ -1,3 +1,4 @@
+/** @nocompile */
 'use strict';
 
 const calculator = require('../js/drinks-calculator.js');
