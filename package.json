@@ -9,6 +9,9 @@
     "beer",
     "wine",
     "champagne",
+    "drinks",
+    "booze",
+    "alcohol",
     "party",
     "wedding"
   ],
@@ -21,7 +24,8 @@
   },
   "scripts": {
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "compile-js": "google-closure-compiler --strict_mode_input --compilation_level=ADVANCED --js=./js/drinks-calculator.js --js_output_file=./lib/js/drinks-calculator.min.js --process_common_js_modules"  
   },
   "devDependencies": {
     "eslint": "^6.1.0",
@@ -30,6 +34,7 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
+    "google-closure-compiler": "^20190819.0.0",
     "jest": "^24.8.0"
   },
   "dependencies": {},
