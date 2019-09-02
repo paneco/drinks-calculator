@@ -1,11 +1,29 @@
 'use strict';
 
-const STANDARD_DRINKS = Object.freeze({ 'wine': 150, 'beer': 330, 'spirits': 30, 'champagne': 150 });
-const STANDARD_BOTTLE_SIZE = Object.freeze({ 'wine': 750, 'beer': 7920, 'spirits': 750, 'champagne': 750 });
-// The number of drinks per hour for a liquor that one person can consume
-const CONSUMPTION_RATE = Object.freeze({ 'wine': 1, 'beer': 1.5, 'spirits': 1.2, 'champagne': 1.2 });
-const RANGE_PREFERENCES = Object.freeze(['dc-spirits-range', 'dc-beer-range', 'dc-wine-range', 'dc-champagne-range']);
+/**
+ * @const
+ */
+const STANDARD_DRINKS = { 'wine': 150, 'beer': 330, 'spirits': 30, 'champagne': 150 };
+/**
+ * @const
+ */
+const STANDARD_BOTTLE_SIZE = { 'wine': 750, 'beer': 7920, 'spirits': 750, 'champagne': 750 };
+/**
+ * The number of drinks per hour for a liquor that one person can consume
+ * @const
+ */
+const CONSUMPTION_RATE = { 'wine': 1, 'beer': 1.5, 'spirits': 1.2, 'champagne': 1.2 };
+/**
+ * @const
+ */
+const RANGE_PREFERENCES = ['dc-spirits-range', 'dc-beer-range', 'dc-wine-range', 'dc-champagne-range'];
+/**
+ * @const {string}
+ */
 const SUFFIX_IS_LOCKED = '-is-locked';
+/**
+ * @const {string}
+ */
 const SUFFIX_IS_REQUIRED = '-is-required';
 
 function calculateUnits(guests, hours, percentage, standardDrinks, consumptionRate, bottleSize) {
@@ -34,11 +52,11 @@ function calculateLiquorTypeCount(containerId, selectorQuery, liquorType) {
 function calculateUnitResults(containerId, selectorQuery, liquorType, percentage, units) {
   var results = {};
   var nodeUnitsTotal = 0;
-  if (percentage > 0) {// && liquorType.count > 0) {
+  if (percentage > 0) {
     var container = document.getElementById(containerId);
-    var wineNodeResultsList = container? container.querySelectorAll(selectorQuery): null;
-    if (wineNodeResultsList) {
-      wineNodeResultsList.forEach(function(listNode, index, listObj){
+    var liquorNodeResultsList = container? container.querySelectorAll(selectorQuery): null;
+    if (liquorNodeResultsList) {
+      liquorNodeResultsList.forEach(function(listNode, index, listObj){
         var forElementId = listNode.getAttribute('for');
         if (liquorType[forElementId+SUFFIX_IS_REQUIRED]) {
           var listNodeUnits = (liquorType[forElementId+SUFFIX_IS_REQUIRED]? Math.ceil(units/liquorType.count): 0);
@@ -50,33 +68,33 @@ function calculateUnitResults(containerId, selectorQuery, liquorType, percentage
       }, 'thisArg');
     }
   }
-  results[containerId+'-total'] = (nodeUnitsTotal==0)?units: nodeUnitsTotal;
+  results[containerId+'-total'] = (nodeUnitsTotal==0)? units: nodeUnitsTotal;
 
   return results;
 }
  
-function calculateTotalUnits(guests, hours, percentageId, subTypeId, resultsId) {
+function calculateTotalUnits(guests, hours, percentageId, subTypeId, resultsId, standardDrinks, consumptionRate, bottleSize) {
   var percentage = getPercentageValue(percentageId);
-  var units = calculateUnits(guests, hours, percentage, STANDARD_DRINKS.wine, CONSUMPTION_RATE.wine, STANDARD_BOTTLE_SIZE.wine);
+  var units = calculateUnits(guests, hours, percentage, standardDrinks, consumptionRate, bottleSize);
   var liquorType = {count: 0};
   calculateLiquorTypeCount(subTypeId, 'input[data-parent-id]', liquorType);
   return calculateUnitResults(resultsId, 'output', liquorType, percentage, units);
 }
 
 function calculateBeerCases(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-beer-range', 'dc-beer-types', 'dc-beer-results');
+  return calculateTotalUnits(guests, hours, 'dc-beer-range', 'dc-beer-types', 'dc-beer-results', STANDARD_DRINKS.beer, CONSUMPTION_RATE.beer, STANDARD_BOTTLE_SIZE.beer);
 }
 
 function calculateWineBottles(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-wine-range', 'dc-wine-types', 'dc-wine-results');
+  return calculateTotalUnits(guests, hours, 'dc-wine-range', 'dc-wine-types', 'dc-wine-results', STANDARD_DRINKS.wine, CONSUMPTION_RATE.wine, STANDARD_BOTTLE_SIZE.wine);
 }
 
 function calculateChampagneBottles(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-champagne-range', 'dc-champagne-types', 'dc-champagne-results');
+  return calculateTotalUnits(guests, hours, 'dc-champagne-range', 'dc-champagne-types', 'dc-champagne-results', STANDARD_DRINKS.champagne, CONSUMPTION_RATE.champagne, STANDARD_BOTTLE_SIZE.champagne);
 }
 
 function calculateSpiritsBottles(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-spirits-range', 'dc-spirits-types', 'dc-spirits-results');
+  return calculateTotalUnits(guests, hours, 'dc-spirits-range', 'dc-spirits-types', 'dc-spirits-results', STANDARD_DRINKS.spirits, CONSUMPTION_RATE.spirits, STANDARD_BOTTLE_SIZE.spirits);
 }
 
 function calculateServes(guests, hours, standardDrinks, rate) {
@@ -200,24 +218,23 @@ function calculateDrinks() {
 }
 
 
-try {
-  module.exports = {
-    calculateServes: calculateServes,
-    getHours: getHours,
-    getOtherPreferences: getOtherPreferences,
-    getAvailablePreferenceCount: getAvailablePreferenceCount,
-    getPercentageValue: getPercentageValue,
-    updateRangeOutput: updateRangeOutput,
-    getRemainderSum: getRemainderSum,
-    getPreferenceValue: getPreferenceValue,
-    getVariableBalance: getVariableBalance,
-    calculateLiquorTypeCount: calculateLiquorTypeCount,
-    calculateUnitResults: calculateUnitResults
-  }
-} catch (error) {
-  console.info("error exporting modules: \n\t"+error);  
+/**
+ * Node exports for exposing methods for unit testing
+ */
+module.exports = {
+  calculateServes: calculateServes,
+  getHours: getHours,
+  getOtherPreferences: getOtherPreferences,
+  getAvailablePreferenceCount: getAvailablePreferenceCount,
+  getPercentageValue: getPercentageValue,
+  updateRangeOutput: updateRangeOutput,
+  getRemainderSum: getRemainderSum,
+  getPreferenceValue: getPreferenceValue,
+  getVariableBalance: getVariableBalance,
+  calculateLiquorTypeCount: calculateLiquorTypeCount,
+  calculateUnitResults: calculateUnitResults
 }
 
-// Store the functions in global propertyies referenced by a string for advanced compilations and minification
+// Store the public functions in global properties referenced by a string for advanced compilations and minification
 window['setPreferences'] = setPreferences;
 window['calculateDrinks'] = calculateDrinks;
