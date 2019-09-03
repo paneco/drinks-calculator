@@ -7,7 +7,7 @@
   <section id="dc-intro" class="dc-intro-container">
     <h3>Planning a party?</h3>
     <div class="dc-intro-text dc-opening">
-        <span>Use this drinks calculator to accurately plan how many drinks you will need for your [</span>
+        <span>Accurately plan how many drinks you will need for your [</span>
     </div>
     <div class="dc-slider-container">
       <div class="mask">
@@ -61,7 +61,7 @@
               oninput="setPreferences(this.id, getElementById('dc-wine-range-output'))"/>
             <div class="dc-range-selector-lock">
               <label id="dc-wine-range-is-locked-label" for="dc-wine-range-is-locked" class="dc-locked-checkbox">
-                <input id="dc-wine-range-is-locked" name="dc-wine-range-is-locked" type="checkbox" class="checkbox-lock"/>
+                <input id="dc-wine-range-is-locked" name="dc-wine-range-is-locked" type="checkbox" class="checkbox-lock" onclick="toggleLockedRange(this,'dc-wine-range')"/>
                 <span class="fas fa-fw fa-lock-open unchecked"></span>
                 <span class="fas fa-fw fa-lock checked"></span>
               </label>
@@ -88,7 +88,7 @@
               oninput="setPreferences(this.id, getElementById('dc-beer-range-output'))"/>
             <div class="dc-range-selector-lock">
               <label id="dc-beer-range-is-locked-label" for="dc-beer-range-is-locked" class="dc-locked-checkbox">
-                <input id="dc-beer-range-is-locked" name="dc-beer-range-is-locked" type="checkbox" class="checkbox-lock"/>
+                <input id="dc-beer-range-is-locked" name="dc-beer-range-is-locked" type="checkbox" class="checkbox-lock" onclick="toggleLockedRange(this,'dc-beer-range')"/>
                 <span class="fas fa-fw fa-lock-open unchecked"></span>
                 <span class="fas fa-fw fa-lock checked"></span>
               </label>
@@ -115,7 +115,7 @@
               oninput="setPreferences(this.id, getElementById('dc-spirits-range-output'))"/>
             <div class="dc-range-selector-lock">
               <label id="dc-spirits-range-is-locked-label" for="dc-spirits-range-is-locked" class="dc-locked-checkbox">
-                <input id="dc-spirits-range-is-locked" name="dc-spirits-range-is-locked" type="checkbox" class="checkbox-lock"/>
+                <input id="dc-spirits-range-is-locked" name="dc-spirits-range-is-locked" type="checkbox" class="checkbox-lock" onclick="toggleLockedRange(this,'dc-spirits-range')"/>
                 <span class="fas fa-fw fa-lock-open unchecked"></span>
                 <span class="fas fa-fw fa-lock checked"></span>
               </label>
@@ -158,7 +158,7 @@
               oninput="setPreferences(this.id, getElementById('dc-champagne-range-output'))"/>
             <div class="dc-range-selector-lock">
               <label id="dc-champagne-range-is-locked-label" for="dc-champagne-range-is-locked" class="dc-locked-checkbox">
-                <input id="dc-champagne-range-is-locked" name="dc-champagne-range-is-locked" type="checkbox" class="checkbox-lock"/>
+                <input id="dc-champagne-range-is-locked" name="dc-champagne-range-is-locked" type="checkbox" class="checkbox-lock" onclick="toggleLockedRange(this,'dc-champagne-range')"/>
                 <span class="fas fa-fw fa-lock-open unchecked"></span>
                 <span class="fas fa-fw fa-lock checked"></span>
               </label>
@@ -241,4 +241,5 @@
 </article>
 </main>
 
+<!-- <script src="./lib/js/drinks-calculator.min.js"></script> -->
 <script src="./js/drinks-calculator.js"></script>

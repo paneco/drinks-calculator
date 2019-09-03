@@ -26,6 +26,15 @@ const SUFFIX_IS_LOCKED = '-is-locked';
  */
 const SUFFIX_IS_REQUIRED = '-is-required';
 
+function toggleLockedRange(target, rangeFieldId) {
+  var rangeField = document.getElementById(rangeFieldId);
+  if (target.checked) {
+    rangeField.disabled = true;
+  } else {
+    rangeField.disabled = false;
+  }
+}
+
 function calculateUnits(guests, hours, percentage, standardDrinks, consumptionRate, bottleSize) {
   var drinks = calculateServes(guests, hours, standardDrinks, consumptionRate);
   return Math.ceil(percentage * (drinks/bottleSize));
@@ -161,6 +170,8 @@ function getAvailablePreferenceCount(otherPreferences) {
 
 /**
  * TODO: refactor to be more modular and testable
+ * 
+ * refactor to make input a parameter. it is just a waste of resources.
  */
 function setPreferences(inputId, output) {
   var input = document.getElementById(inputId);
@@ -238,3 +249,4 @@ module.exports = {
 // Store the public functions in global properties referenced by a string for advanced compilations and minification
 window['setPreferences'] = setPreferences;
 window['calculateDrinks'] = calculateDrinks;
+window['toggleLockedRange'] = toggleLockedRange;
