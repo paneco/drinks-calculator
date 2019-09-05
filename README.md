@@ -15,6 +15,27 @@ Follow these instructions to install the Drinks Calculator Widget
 
 ## Usage
 
+## Developers
+### Prerequisites
+* [eslint]
+* [Google Closure Compiler]
+* [Jest|]
+
+### Setup
+
+### Running Tests
+To run the Jest tests use:
+```
+npm run test
+```
+
+### Building
+To minify the javascript files run:
+```
+npm run compile-js
+```
+
+
 ## Contributing
 
 ## Contact
