@@ -448,7 +448,7 @@ test('update the value of the range field when balance value is NaN', () => {
   input.value = 30;
   var output = document.createElement('output');
   output.value = 35;
-  calculator.updateRangeOutput(input, output);
+  calculator.setOtherRangesOutput(input, output);
   expect(parseInt(output.value)).toBe(30);
 });
 
@@ -457,7 +457,7 @@ test('update the value of the range field when balance value is null', () => {
   input.value = 30;
   var output = document.createElement('output');
   output.value = 35;
-  calculator.updateRangeOutput(input, output,null);
+  calculator.setOtherRangesOutput(input, output, null, false);
   expect(parseInt(output.value)).toBe(30);
 });
 
@@ -466,8 +466,17 @@ test('update the value of the range field when balance value is less than zero',
   input.value = 30;
   var output = document.createElement('output');
   output.value = 35;
-  calculator.updateRangeOutput(input, output,-1);
+  calculator.setOtherRangesOutput(input, output, -1, false);
   expect(parseInt(output.value)).toBe(29);
+});
+
+test('update the value of the range field when balance value is greater than input value', () => {
+  var input = document.createElement('input');
+  input.value = 30;
+  var output = document.createElement('output');
+  output.value = 35;
+  calculator.setOtherRangesOutput(input, output, -40, false);
+  expect(parseInt(output.value)).toBe(0);
 });
 
 test('update the value of the range field when balance value is zero', () => {
@@ -475,7 +484,7 @@ test('update the value of the range field when balance value is zero', () => {
   input.value = 30;
   var output = document.createElement('output');
   output.value = 35;
-  calculator.updateRangeOutput(input, output,0)
+  calculator.setOtherRangesOutput(input, output, 0, false);
   expect(parseInt(output.value)).toBe(30);
 });
 
@@ -484,6 +493,102 @@ test('update the value of the range field when balance value is greater than zer
   input.value = 30;
   var output = document.createElement('output');
   output.value = 35;
-  calculator.updateRangeOutput(input, output,1)
+  calculator.setOtherRangesOutput(input, output, 1, false);
+  expect(parseInt(output.value)).toBe(30);
+});
+
+test('update the value of the range field when the range is locked', () => {
+  var input = document.createElement('input');
+  input.value = 30;
+  var output = document.createElement('output');
+  output.value = 35;
+  calculator.setOtherRangesOutput(input, output, 1, true);
+  expect(parseInt(output.value)).toBe(35);
+});
+
+test('toggle the range field from editable to locked', () => {
+  var target = document.createElement('input');
+  target.setAttribute('checked', true);
+  document.body.innerHTML = '<div>' +
+    '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="14"/>' +
+    '</div>';
+  calculator.toggleLockedRange(target, 'dc-wine-range');
+  var rangeField = document.getElementById('dc-wine-range');
+  expect(rangeField.disabled).toBe(true);
+});
+
+
+test('toggle the range field from locked to editable', () => {
+  var target = document.createElement('input');
+  // target.setAttribute('checked', false);
+  document.body.innerHTML = '<div>' +
+    '<input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="14 disabled="true"/>' +
+    '</div>';
+  calculator.toggleLockedRange(target, 'dc-wine-range');
+  var rangeField = document.getElementById('dc-wine-range');
+  expect(rangeField.disabled).toBe(false);
+});
+
+
+test('update the value of the range field when balance value is NaN', () => {
+  var input = document.createElement('input');
+  input.value = 30;
+  var output = document.createElement('output');
+  output.value = 35;
+  calculator.setRangeOutput(input, output);
+  expect(parseInt(output.value)).toBe(30);
+});
+
+test('update the value of the range field when balance value is null', () => {
+  var input = document.createElement('input');
+  input.value = 30;
+  var output = document.createElement('output');
+  output.value = 35;
+  calculator.setRangeOutput(input, output, null);
+  expect(parseInt(output.value)).toBe(30);
+});
+
+test('update the value of the range field when balance value is less than zero', () => {
+  var input = document.createElement('input');
+  input.value = 30;
+  var output = document.createElement('output');
+  output.value = 35;
+  calculator.setRangeOutput(input, output, -1);
+  expect(parseInt(output.value)).toBe(29);
+});
+
+test('update the value of the range field when balance value is greater than input value', () => {
+  var input = document.createElement('input');
+  input.value = 30;
+  var output = document.createElement('output');
+  output.value = 35;
+  calculator.setRangeOutput(input, output, -40);
+  expect(parseInt(output.value)).toBe(-10);
+});
+
+test('update the value of the range field when balance value is zero', () => {
+  var input = document.createElement('input');
+  input.value = 30;
+  var output = document.createElement('output');
+  output.value = 35;
+  calculator.setRangeOutput(input, output, 0);
+  expect(parseInt(output.value)).toBe(30);
+});
+
+test('update the value of the range field when balance value is greater than zero', () => {
+  var input = document.createElement('input');
+  input.value = 30;
+  var output = document.createElement('output');
+  output.value = 35;
+  calculator.setRangeOutput(input, output, 1);
+  expect(parseInt(output.value)).toBe(30);
+});
+
+test('update the value of the range field when the range is locked', () => {
+  var input = document.createElement('input');
+  input.value = 30;
+  var output = document.createElement('output');
+  output.value = 35;
+  calculator.setRangeOutput(input, output, 1);
   expect(parseInt(output.value)).toBe(30);
 });

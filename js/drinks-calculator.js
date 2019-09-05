@@ -114,13 +114,21 @@ function calculateServes(guests, hours, standardDrinks, rate) {
   return standardDrinks * rate * guests * hours;
 }
 
-function updateRangeOutput(input, output, balance) {
+function setRangeOutput(input, output, balance) {
+  if (balance < 0) input.value = parseInt(input.value) + balance;
+
+  output.value = input.value;
+}
+
+function setOtherRangesOutput(input, output, balance, isLocked) {
+  if (isLocked) return;
+
   var inputValue = parseInt(input.value, 10);
   if (balance && (balance < 0)) {
     inputValue = inputValue + balance;
   }
 
-  output.value = parseInt(inputValue, 10);
+  output.value = (inputValue < 0? 0: inputValue);
 }
 
 function getOtherPreferences(elementId) {
@@ -179,10 +187,7 @@ function setPreferences(inputId, output) {
   var balance = getVariableBalance(input.valueAsNumber, otherPreferences);
   var remainderSum = getRemainderSum(otherPreferences);
 
-  // TODO: test this
-  if (balance < 0) input.value = input.valueAsNumber + balance;
-
-  updateRangeOutput(input, output, balance);
+  setRangeOutput(input, output, balance);
 
   var otherAvailablePreferencesCount = getAvailablePreferenceCount(otherPreferences);
   otherPreferences.forEach(preference => {
@@ -190,7 +195,7 @@ function setPreferences(inputId, output) {
     var isLocked = document.getElementById(preference+SUFFIX_IS_LOCKED).checked;
     
     preferenceElement.value = getPreferenceValue(preferenceElement.value, remainderSum, balance, isLocked, otherAvailablePreferencesCount);
-    updateRangeOutput(preferenceElement, document.getElementById(preference+'-output'), balance);
+    setOtherRangesOutput(preferenceElement, document.getElementById(preference+'-output'), balance, isLocked);
   });
 }
 
@@ -238,12 +243,14 @@ module.exports = {
   getOtherPreferences: getOtherPreferences,
   getAvailablePreferenceCount: getAvailablePreferenceCount,
   getPercentageValue: getPercentageValue,
-  updateRangeOutput: updateRangeOutput,
+  setRangeOutput: setRangeOutput,
+  setOtherRangesOutput: setOtherRangesOutput,
   getRemainderSum: getRemainderSum,
   getPreferenceValue: getPreferenceValue,
   getVariableBalance: getVariableBalance,
   calculateLiquorTypeCount: calculateLiquorTypeCount,
-  calculateUnitResults: calculateUnitResults
+  calculateUnitResults: calculateUnitResults,
+  toggleLockedRange: toggleLockedRange
 }
 
 // Store the public functions in global properties referenced by a string for advanced compilations and minification
