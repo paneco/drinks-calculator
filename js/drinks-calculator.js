@@ -3,25 +3,36 @@
 /**
  * @const
  */
-const STANDARD_DRINKS = { 'wine': 150, 'beer': 330, 'spirits': 30, 'champagne': 150 };
+const STANDARD_DRINKS = { wine: 150, beer: 330, spirits: 30, champagne: 150 };
 /**
  * @const
  */
-const STANDARD_BOTTLE_SIZE = { 'wine': 750, 'beer': 7920, 'spirits': 750, 'champagne': 750 };
+const STANDARD_BOTTLE_SIZE = { wine: 750, beer: 7920, spirits: 750, champagne: 750 };
 /**
  * The number of drinks per hour for a liquor that one person can consume
  * @const
  */
-const CONSUMPTION_RATE = { 'wine': 1, 'beer': 1.5, 'spirits': 1.2, 'champagne': 1.2 };
+const CONSUMPTION_RATE = { wine: 1, beer: 1.5, spirits: 1.2, champagne: 1.2 };
 /**
  * The configuration of unit types for each drink type
  * @const
  */
-const UNIT_TYPE = { 'wine': {'single': 'Bottle', 'plural': 'Bottles'}, 
-                    'beer': {'single': 'Case', 'plural': 'Cases'},
-                    'spirits': {'single': 'Bottle', 'plural': 'Bottles'},
-                    'champagne': {'single': 'Bottle', 'plural': 'Bottles'} 
-                  };
+const UNIT_TYPE_WINE = {single: 'Bottle', plural: 'Bottles'};
+/**
+ * The configuration of unit types for each drink type
+ * @const
+ */
+const UNIT_TYPE_BEER = {single: 'Case', plural: 'Cases'};
+/**
+ * The configuration of unit types for each drink type
+ * @const
+ */
+const UNIT_TYPE_SPIRITS = {single: 'Bottle', plural: 'Bottles'};
+/**
+ * The configuration of unit types for each drink type
+ * @const
+ */
+const UNIT_TYPE_CHAMPAGNE = {single: 'Bottle', plural: 'Bottles'};
 /**
  * @const
  */
@@ -102,19 +113,19 @@ function calculateTotalUnits(guests, hours, percentageId, subTypeId, resultsId, 
 }
 
 function calculateBeerCases(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-beer-range', 'dc-beer-types', 'dc-beer-results', STANDARD_DRINKS.beer, CONSUMPTION_RATE.beer, STANDARD_BOTTLE_SIZE.beer, UNIT_TYPE.beer);
+  return calculateTotalUnits(guests, hours, 'dc-beer-range', 'dc-beer-types', 'dc-beer-results', STANDARD_DRINKS.beer, CONSUMPTION_RATE.beer, STANDARD_BOTTLE_SIZE.beer, UNIT_TYPE_BEER);
 }
 
 function calculateWineBottles(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-wine-range', 'dc-wine-types', 'dc-wine-results', STANDARD_DRINKS.wine, CONSUMPTION_RATE.wine, STANDARD_BOTTLE_SIZE.wine, UNIT_TYPE.wine);
+  return calculateTotalUnits(guests, hours, 'dc-wine-range', 'dc-wine-types', 'dc-wine-results', STANDARD_DRINKS.wine, CONSUMPTION_RATE.wine, STANDARD_BOTTLE_SIZE.wine, UNIT_TYPE_WINE);
 }
 
 function calculateChampagneBottles(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-champagne-range', 'dc-champagne-types', 'dc-champagne-results', STANDARD_DRINKS.champagne, CONSUMPTION_RATE.champagne, STANDARD_BOTTLE_SIZE.champagne, UNIT_TYPE.champagne);
+  return calculateTotalUnits(guests, hours, 'dc-champagne-range', 'dc-champagne-types', 'dc-champagne-results', STANDARD_DRINKS.champagne, CONSUMPTION_RATE.champagne, STANDARD_BOTTLE_SIZE.champagne, UNIT_TYPE_CHAMPAGNE);
 }
 
 function calculateSpiritsBottles(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-spirits-range', 'dc-spirits-types', 'dc-spirits-results', STANDARD_DRINKS.spirits, CONSUMPTION_RATE.spirits, STANDARD_BOTTLE_SIZE.spirits, UNIT_TYPE.spirits);
+  return calculateTotalUnits(guests, hours, 'dc-spirits-range', 'dc-spirits-types', 'dc-spirits-results', STANDARD_DRINKS.spirits, CONSUMPTION_RATE.spirits, STANDARD_BOTTLE_SIZE.spirits, UNIT_TYPE_SPIRITS);
 }
 
 function calculateServes(guests, hours, standardDrinks, rate) {
@@ -243,7 +254,6 @@ function calculateDrinks() {
 
   return false;
 }
-
 
 /**
  * Node exports for exposing methods for unit testing
