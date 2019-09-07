@@ -294,8 +294,8 @@ test('determine the total liquor and sub-types of units required when liquor typ
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: -1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
-  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
-  expect(results['dc-wine-results-total']).toBe(1);
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1, {'single': 'Bottle', 'plural': 'Bottles'});
+  expect(results['dc-wine-results-total']).toBe('1 Bottle');
   expect(results['dc-wine-results-red-wine']).toBe(0);
   expect(results['dc-wine-results-white-wine']).toBe(0);
 });
@@ -307,8 +307,8 @@ test('determine the total liquor and sub-types of units required when liquor typ
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: 0, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
-  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
-  expect(results['dc-wine-results-total']).toBe(1);
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1, {'single': 'Bottle', 'plural': 'Bottles'});
+  expect(results['dc-wine-results-total']).toBe('1 Bottle');
   expect(results['dc-wine-results-red-wine']).toBe(0);
   expect(results['dc-wine-results-white-wine']).toBe(0);
 });
@@ -320,7 +320,7 @@ test('determine the total liquor and sub-types of units required when container 
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
-  var results = calculator.calculateUnitResults('unknown', 'output', liquorType, 50, 1);
+  var results = calculator.calculateUnitResults('unknown', 'output', liquorType, 50, 1, {'single': 'Bottle', 'plural': 'Bottles'});
   expect(results['dc-wine-results-total']).toBeUndefined();
   expect(results['dc-wine-results-red-wine']).toBeUndefined();
   expect(results['dc-wine-results-white-wine']).toBeUndefined();
@@ -333,8 +333,8 @@ test('determine the total liquor and sub-types of units required when no matches
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
-  var results = calculator.calculateUnitResults('dc-wine-results', 'unknown', liquorType, 50, 1);
-  expect(results['dc-wine-results-total']).toBe(1);
+  var results = calculator.calculateUnitResults('dc-wine-results', 'unknown', liquorType, 50, 1, {'single': 'Bottle', 'plural': 'Bottles'});
+  expect(results['dc-wine-results-total']).toBe('1 Bottle');
   expect(results['dc-wine-results-red-wine']).toBeUndefined();
   expect(results['dc-wine-results-white-wine']).toBeUndefined();
 });
@@ -346,8 +346,8 @@ test('determine the total liquor and sub-types of units required when percentage
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
-  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, -1, 1);
-  expect(results['dc-wine-results-total']).toBe(1);
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, -1, 1, {'single': 'Bottle', 'plural': 'Bottles'});
+  expect(results['dc-wine-results-total']).toBe('1 Bottle');
   expect(results['dc-wine-results-red-wine']).toBeUndefined();
   expect(results['dc-wine-results-white-wine']).toBeUndefined();
 });
@@ -359,8 +359,8 @@ test('determine the total liquor and sub-types of units required when percentage
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
-  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 0, 1);
-  expect(results['dc-wine-results-total']).toBe(1);
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 0, 1, {'single': 'Bottle', 'plural': 'Bottles'});
+  expect(results['dc-wine-results-total']).toBe('1 Bottle');
   expect(results['dc-wine-results-red-wine']).toBeUndefined();
   expect(results['dc-wine-results-white-wine']).toBeUndefined();
 });
@@ -372,8 +372,8 @@ test('determine the total liquor and sub-types of units required when units less
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
-  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, -1);
-  expect(results['dc-wine-results-total']).toBe(-1);
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, -1, {'single': 'Bottle', 'plural': 'Bottles'});
+  expect(results['dc-wine-results-total']).toBe('-1 Bottles');
   expect(results['dc-wine-results-red-wine']).toBe(0);
   expect(results['dc-wine-results-white-wine']).toBe(0);
 });
@@ -385,8 +385,8 @@ test('determine the total liquor and sub-types of units required when units are 
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
-  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 0);
-  expect(results['dc-wine-results-total']).toBe(0);
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 0, {'single': 'Bottle', 'plural': 'Bottles'});
+  expect(results['dc-wine-results-total']).toBe('0 Bottles');
   expect(results['dc-wine-results-red-wine']).toBe(0);
   expect(results['dc-wine-results-white-wine']).toBe(0);
 });
@@ -398,8 +398,8 @@ test('determine the total liquor and sub-types of units required when liquor opt
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: 1};
-  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
-  expect(results['dc-wine-results-total']).toBe(1);
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1, {'single': 'Bottle', 'plural': 'Bottles'});
+  expect(results['dc-wine-results-total']).toBe('1 Bottle');
   expect(results['dc-wine-results-red-wine']).toBe(0);
   expect(results['dc-wine-results-white-wine']).toBe(0);
 });
@@ -411,8 +411,8 @@ test('determine the total liquor and sub-types of units required when liquor opt
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: 1, "dc-red-wine-is-required": false, "dc-white-wine-is-required": false};
-  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
-  expect(results['dc-wine-results-total']).toBe(1);
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1, {'single': 'Bottle', 'plural': 'Bottles'});
+  expect(results['dc-wine-results-total']).toBe('1 Bottle');
   expect(results['dc-wine-results-red-wine']).toBe(0);
   expect(results['dc-wine-results-white-wine']).toBe(0);
 });
@@ -424,8 +424,8 @@ test('determine the total liquor and sub-types of units required when liquor opt
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: 1, "dc-red-wine-is-required": true, "dc-white-wine-is-required": true};
-  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
-  expect(results['dc-wine-results-total']).toBe(2);
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1, {'single': 'Bottle', 'plural': 'Bottles'});
+  expect(results['dc-wine-results-total']).toBe('2 Bottles');
   expect(results['dc-wine-results-red-wine']).toBe(1);
   expect(results['dc-wine-results-white-wine']).toBe(1);
 });
@@ -437,8 +437,8 @@ test('determine the total liquor and sub-types of units required when partial li
     '<dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> White Wine</dd>'+
     '</dl>';
   var liquorType = {count: 1, "dc-red-wine-is-required": true, "dc-white-wine-is-required": false};
-  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1);
-  expect(results['dc-wine-results-total']).toBe(1);
+  var results = calculator.calculateUnitResults('dc-wine-results', 'output', liquorType, 50, 1, {'single': 'Bottle', 'plural': 'Bottles'});
+  expect(results['dc-wine-results-total']).toBe('1 Bottle');
   expect(results['dc-wine-results-red-wine']).toBe(1);
   expect(results['dc-wine-results-white-wine']).toBe(0);
 });

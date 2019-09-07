@@ -14,6 +14,15 @@ const STANDARD_BOTTLE_SIZE = { 'wine': 750, 'beer': 7920, 'spirits': 750, 'champ
  */
 const CONSUMPTION_RATE = { 'wine': 1, 'beer': 1.5, 'spirits': 1.2, 'champagne': 1.2 };
 /**
+ * The configuration of unit types for each drink type
+ * @const
+ */
+const UNIT_TYPE = { 'wine': {'single': 'Bottle', 'plural': 'Bottles'}, 
+                    'beer': {'single': 'Case', 'plural': 'Cases'},
+                    'spirits': {'single': 'Bottle', 'plural': 'Bottles'},
+                    'champagne': {'single': 'Bottle', 'plural': 'Bottles'} 
+                  };
+/**
  * @const
  */
 const RANGE_PREFERENCES = ['dc-spirits-range', 'dc-beer-range', 'dc-wine-range', 'dc-champagne-range'];
@@ -58,7 +67,7 @@ function calculateLiquorTypeCount(containerId, selectorQuery, liquorType) {
   }
 }
 
-function calculateUnitResults(containerId, selectorQuery, liquorType, percentage, units) {
+function calculateUnitResults(containerId, selectorQuery, liquorType, percentage, units, unitType) {
   var results = {};
   var nodeUnitsTotal = 0;
   if (percentage > 0) {
@@ -77,33 +86,35 @@ function calculateUnitResults(containerId, selectorQuery, liquorType, percentage
       }, 'thisArg');
     }
   }
-  results[containerId+'-total'] = (nodeUnitsTotal==0)? units: nodeUnitsTotal;
+  var tempTotal = (nodeUnitsTotal==0)? units: nodeUnitsTotal;
+  
+  results[containerId+'-total'] = `${tempTotal} ${(tempTotal==1)?unitType.single: unitType.plural}`;
 
   return results;
 }
  
-function calculateTotalUnits(guests, hours, percentageId, subTypeId, resultsId, standardDrinks, consumptionRate, bottleSize) {
+function calculateTotalUnits(guests, hours, percentageId, subTypeId, resultsId, standardDrinks, consumptionRate, bottleSize, unitType) {
   var percentage = getPercentageValue(percentageId);
   var units = calculateUnits(guests, hours, percentage, standardDrinks, consumptionRate, bottleSize);
   var liquorType = {count: 0};
   calculateLiquorTypeCount(subTypeId, 'input[data-parent-id]', liquorType);
-  return calculateUnitResults(resultsId, 'output', liquorType, percentage, units);
+  return calculateUnitResults(resultsId, 'output', liquorType, percentage, units, unitType);
 }
 
 function calculateBeerCases(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-beer-range', 'dc-beer-types', 'dc-beer-results', STANDARD_DRINKS.beer, CONSUMPTION_RATE.beer, STANDARD_BOTTLE_SIZE.beer);
+  return calculateTotalUnits(guests, hours, 'dc-beer-range', 'dc-beer-types', 'dc-beer-results', STANDARD_DRINKS.beer, CONSUMPTION_RATE.beer, STANDARD_BOTTLE_SIZE.beer, UNIT_TYPE.beer);
 }
 
 function calculateWineBottles(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-wine-range', 'dc-wine-types', 'dc-wine-results', STANDARD_DRINKS.wine, CONSUMPTION_RATE.wine, STANDARD_BOTTLE_SIZE.wine);
+  return calculateTotalUnits(guests, hours, 'dc-wine-range', 'dc-wine-types', 'dc-wine-results', STANDARD_DRINKS.wine, CONSUMPTION_RATE.wine, STANDARD_BOTTLE_SIZE.wine, UNIT_TYPE.wine);
 }
 
 function calculateChampagneBottles(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-champagne-range', 'dc-champagne-types', 'dc-champagne-results', STANDARD_DRINKS.champagne, CONSUMPTION_RATE.champagne, STANDARD_BOTTLE_SIZE.champagne);
+  return calculateTotalUnits(guests, hours, 'dc-champagne-range', 'dc-champagne-types', 'dc-champagne-results', STANDARD_DRINKS.champagne, CONSUMPTION_RATE.champagne, STANDARD_BOTTLE_SIZE.champagne, UNIT_TYPE.champagne);
 }
 
 function calculateSpiritsBottles(guests, hours) {
-  return calculateTotalUnits(guests, hours, 'dc-spirits-range', 'dc-spirits-types', 'dc-spirits-results', STANDARD_DRINKS.spirits, CONSUMPTION_RATE.spirits, STANDARD_BOTTLE_SIZE.spirits);
+  return calculateTotalUnits(guests, hours, 'dc-spirits-range', 'dc-spirits-types', 'dc-spirits-results', STANDARD_DRINKS.spirits, CONSUMPTION_RATE.spirits, STANDARD_BOTTLE_SIZE.spirits, UNIT_TYPE.spirits);
 }
 
 function calculateServes(guests, hours, standardDrinks, rate) {
@@ -115,7 +126,7 @@ function calculateServes(guests, hours, standardDrinks, rate) {
 }
 
 function setRangeOutput(input, output, balance) {
-  if (balance < 0) input.value = parseInt(input.value) + balance;
+  if (balance < 0) input.value = parseInt(input.value, 10) + balance;
 
   output.value = input.value;
 }
