@@ -35,12 +35,12 @@
 .dc-liquor-preferences {
   margin-top: 0.2em;
   margin-bottom: 0.2em;
+  border-style: none;
 }
 
 .dc-liquor-preferences legend {
   padding: 0.2em 0.5em;
-  border-width: 1px;
-  border-style: solid;
+  border-style: none;
   text-align: center;
 }
 
@@ -90,8 +90,13 @@
   display: inline;
 }
 
+.dc-opening {
+  display: inline;
+}
+
 .dc-closing {
-  padding-left: 4.2em;
+  display: inline;
+  padding-left: 6.0em;
 }
 
 .dc-results-dl dt {
@@ -124,6 +129,8 @@
 
 .dc-slider-container li {
   position: absolute;
+  width: 5.8em;
+  text-align: center;
 }
 
 .dc-slider-container li.dc-slider-effect1 {

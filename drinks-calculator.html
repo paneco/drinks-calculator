@@ -6,8 +6,9 @@
   <h2 id="dc-widget-heading">Drinks Calculator</h2>
   <section id="dc-intro" class="dc-intro-container">
     <h3>Planning a party?</h3>
-    <div class="dc-intro-text dc-opening">
-        <span>Accurately plan how many drinks you will need for your [</span>
+    <div class="dc-intro-text">
+        <span>Accurately plan how many drinks you will need for your </span>
+        <span class="dc-opening">[</span>
     </div>
     <div class="dc-slider-container">
       <div class="mask">
@@ -16,11 +17,11 @@
           <li class="dc-slider-effect2">Wedding</li>
           <li class="dc-slider-effect3">BBQ</li>
           <li class="dc-slider-effect4">Event</li>
-          <li class="dc-slider-effect5">Corporate</li>
+          <li class="dc-slider-effect5">Celebration</li>
         </ul>
       </div>
     </div>
-    <div class="dc-intro-text dc-closing"><span>]</span></div>
+    <div class="dc-intro-text"><span class="dc-closing">]</span></div>
   </section>
   <datalist id="dc-tickmarks">
     <option value="0" label="0%">
@@ -173,8 +174,8 @@
     </fieldset>
   </form>
   <section id="dc-calculated-results" class="dc-results">
-    <h3>Results</h3>
-    <p>Here's what you'll need for your event:</p>
+    <h3>Here's what you'll need</h3>
+    <p>Estimated, your guests will drink:</p>
     <dl id="dc-wine-results" class="dc-results-dl">
       <dt><span class="fas fa-wine-glass-alt"></span>&nbsp;<output id="dc-wine-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-wine-results-total">0</output> (750ml) of Wine</dt>
       <dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> Red Wine</dd>
@@ -241,5 +242,5 @@
 </article>
 </main>
 
-<!-- <script src="./lib/js/drinks-calculator.min.js"></script> -->
-<script src="./js/drinks-calculator.js"></script>
+<script src="./lib/js/drinks-calculator.min.js"></script>
+<!-- <script src="./js/drinks-calculator.js"></script> -->
