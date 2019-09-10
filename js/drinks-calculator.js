@@ -12,7 +12,7 @@ const STANDARD_BOTTLE_SIZE = { wine: 750, beer: 7920, spirits: 750, champagne: 7
  * The number of drinks per hour for a liquor that one person can consume
  * @const
  */
-const CONSUMPTION_RATE = { wine: 1, beer: 1.5, spirits: 1.2, champagne: 1.2 };
+const CONSUMPTION_RATE = { wine: 1.2, beer: 1.9, spirits: 1.2, champagne: 1.3 };
 /**
  * The configuration of unit types for each drink type
  * @const
@@ -228,8 +228,13 @@ function getHours() {
 }
 
 function setResults(results) {
+  var element;
   for (let [key, value] of Object.entries(results)) {
-    document.getElementById(key).value = value;
+    element = document.getElementById(key);
+    element.value = value;
+    if (value > 0 && element.parentNode.nodeName == 'DD') {
+      element.parentNode.style.display = 'block';
+    }
   }
 }
 
