@@ -3,6 +3,11 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.dc-form-field-title {
+  font-size: larger;
+  padding: 0.1em 0.5em;
+}
+
 .dc-results {
   display: none;
 }
@@ -19,22 +24,59 @@
 }
 
 .dc-form-fields {
-  margin-top: 0.4em;
+  margin-top: 1em;
 }
 
-.dc-number-field {
+.dc-input-field {
   border-style: solid;
   border-color: black;
   border-width: 1px;
+  font-size: 1em;
+  padding: 0.4em 0.25em;
+}
+
+.dc-number-field {
+  display: block;
+  width: 100%;
+}
+
+.dc-input-field-label {
+  display: inline-block;
+  margin-bottom: 0.3em;
+}
+
+.dc-time-picker {
+  display: block;
+  width: 100%;
+}
+.dc-time-picker > div {
+  display: inline-block;
+  zoom: 1; /* Trigger hasLayout */
+  width: 49%;
+}
+.dc-time-picker-field {
+  width: 70%;
 }
 
 .dc-event-details {
-  margin-top: 0.2em;
+  margin-top: 0.7em;
   margin-bottom: 0.2em;
 }
 
+.dc-liquor-options {
+  margin-top: 0.4em;
+}
+.dc-liquor-option {
+  margin-top: 0.7em;
+  margin-bottom: 0.2em;
+}
+
+.dc-liquor-options > summary::-webkit-details-marker {
+  font-size: larger;
+}
+
 .dc-liquor-preferences {
-  margin-top: 0.2em;
+  margin-top: 1.6em;
   margin-bottom: 0.2em;
   border-style: none;
 }
@@ -43,6 +85,8 @@
   padding: 0.2em 0.5em;
   border-style: none;
   text-align: center;
+  font-weight: bold;
+  font-size: larger; 
 }
 
 .dc-preference-range-selector {
@@ -102,16 +146,31 @@
 
 .dc-results-dl dt {
   font-weight: bolder;
+  font-size: larger;
 }
 
 .dc-results-dl dd {
   display: none;
+  margin-top: 0.3em;
+  margin-bottom: 0.7em;
+  font-size: large;
 }
 
 .dc-form-buttons-block {
   margin-top: 1.5em;
   display: flex;
   justify-content: center;
+}
+
+.dc-form-buttons-block input[type='submit'] {
+  background-color: black;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  padding: 0.5em 1em;
+  margin: 2px 0;
+  font-size: large;
+  font-weight: bold;
 }
 
 .dc-slider-container {
