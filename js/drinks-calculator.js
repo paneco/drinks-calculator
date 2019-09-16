@@ -68,7 +68,7 @@ function calculateLiquorTypeCount(containerId, selectorQuery, liquorType) {
   var container = document.getElementById(containerId);
   if (container) {
     var liquorNodeList = container.querySelectorAll(selectorQuery);
-    liquorNodeList.forEach(function(liquorNode, index, listObj) {
+    liquorNodeList.forEach(function(liquorNode) {
       var isLiquorTypeRequired = document.getElementById(liquorNode.id).checked;
       liquorType[liquorNode.id+SUFFIX_IS_REQUIRED] = isLiquorTypeRequired;
       if (isLiquorTypeRequired) {
@@ -85,7 +85,7 @@ function calculateUnitResults(containerId, selectorQuery, liquorType, percentage
     var container = document.getElementById(containerId);
     var liquorNodeResultsList = container? container.querySelectorAll(selectorQuery): null;
     if (liquorNodeResultsList) {
-      liquorNodeResultsList.forEach(function(listNode, index, listObj){
+      liquorNodeResultsList.forEach(function(listNode){
         var forElementId = listNode.getAttribute('for');
         if (liquorType[forElementId+SUFFIX_IS_REQUIRED]) {
           var listNodeUnits = (liquorType[forElementId+SUFFIX_IS_REQUIRED]? Math.ceil(units/liquorType.count): 0);
