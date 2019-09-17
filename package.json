@@ -24,19 +24,21 @@
   },
   "scripts": {
     "test": "jest",
-    "coverage": "jest --coverage",
+    "test-coverage": "jest --coverage",
     "compile-js": "google-closure-compiler --strict_mode_input --compilation_level=ADVANCED --js=./js/drinks-calculator.js --js_output_file=./lib/js/drinks-calculator.min.js --process_common_js_modules",
-    "eslint": "eslint ./js/drinks-calculator.js ./tests/drinks-calculator.test.js"
+    "eslint": "eslint ./js/drinks-calculator.js ./tests/drinks-calculator.test.js",
+    "stylelint": "stylelint ./css/*.css"
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
+    "eslint": "^6.4.0",
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-node": "^9.2.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-standard": "^4.0.1",
     "google-closure-compiler": "^20190819.0.0",
-    "jest": "^24.8.0"
+    "jest": "^24.9.0",
+    "stylelint": "^11.0.0"
   },
   "dependencies": {}
 }
