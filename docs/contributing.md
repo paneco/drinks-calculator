@@ -75,6 +75,8 @@ The following prerequisites can be executed via npm:
 * [eslint](https://eslint.org/)
 * [Google Closure Compiler](https://developers.google.com/closure/compiler/)
 * [Jest](https://jestjs.io/)
+* [cssnano](https://cssnano.co/)
+* [htmlminifier](https://kangax.github.io/html-minifier/)
 
 ### Setup
 Pull the code and create a branch.
@@ -103,9 +105,20 @@ To minify the javascript files run:
 ```
 npm run compile-js
 ```
+To minify the CSS files run:
+```
+npm run minify-css
+```
+To minify the HTML files run:
+```
+npm run minify-html
+```
+
 
 ## License
 By contributing, you agree that your contributions will be licensed under its LGPL V3 License.
+
+© [Paneco Singapore](https://www.paneco.com.sg)
 
 ## Final Words
 Happy contributing, the Paneco.com Engineering Team

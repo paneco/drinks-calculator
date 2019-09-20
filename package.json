@@ -27,9 +27,12 @@
     "test-coverage": "jest --coverage",
     "compile-js": "google-closure-compiler --strict_mode_input --compilation_level=ADVANCED --js=./js/drinks-calculator.js --js_output_file=./lib/js/drinks-calculator.min.js --process_common_js_modules",
     "eslint": "eslint ./js/drinks-calculator.js ./tests/drinks-calculator.test.js",
-    "stylelint": "stylelint ./css/*.css"
+    "stylelint": "stylelint ./css/*.css",
+    "minifycss": "postcss css/drinks-calculator.css > lib/css/drinks-calculator.min.css",
+    "minifyhtml": "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --use-short-doctype --minify-css true --minify-js true drinks-calculator.html > lib/drinks-calculator.min.html"
   },
   "devDependencies": {
+    "cssnano": "^4.1.10",
     "eslint": "^6.4.0",
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-import": "^2.18.2",
