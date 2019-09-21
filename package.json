@@ -22,6 +22,9 @@
     "type": "git",
     "url": "https://github.com/paneco/drinks-calculator.git"
   },
+  "bugs": {
+    "url": "https://github.com/paneco/drinks-calculator/issues"
+  },
   "scripts": {
     "test": "jest",
     "test-coverage": "jest --coverage",
@@ -29,7 +32,8 @@
     "eslint": "eslint ./js/drinks-calculator.js ./tests/drinks-calculator.test.js",
     "stylelint": "stylelint ./css/*.css",
     "minifycss": "postcss css/drinks-calculator.css > lib/css/drinks-calculator.min.css",
-    "minifyhtml": "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --use-short-doctype --minify-css true --minify-js true drinks-calculator.html > lib/drinks-calculator.min.html"
+    "minifyhtml": "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --use-short-doctype --minify-css true --minify-js true drinks-calculator.html > lib/drinks-calculator.min.html",
+    "build": "npm run eslint && npm run stylelint && npm run compile-js && npm run minifycss && npm run minifyhtml"
   },
   "devDependencies": {
     "cssnano": "^4.1.10",
