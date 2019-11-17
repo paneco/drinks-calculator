@@ -1,7 +1,7 @@
 {
   "name": "drinks-calculator",
   "version": "1.0.0",
-  "description": "Paneco Drinks Calculator. An easy tool for embedding in your website and calculate the number of drinks required for any event",
+  "description": "Paneco Drinks Calculator. An easy tool for embedding in your website and calculate the number of drinks required for any event or celebration.",
   "keywords": [
     "paneco",
     "calculator",
@@ -9,11 +9,14 @@
     "beer",
     "wine",
     "champagne",
+    "spirits",
+    "liquor",
     "drinks",
     "booze",
     "alcohol",
     "party",
-    "wedding"
+    "wedding",
+    "celebration"
   ],
   "license": "LGPL-3.0-or-later",
   "homepage": "https://github.com/paneco/drinks-calculator",
@@ -26,26 +29,48 @@
     "url": "https://github.com/paneco/drinks-calculator/issues"
   },
   "scripts": {
-    "test": "jest",
-    "test-coverage": "jest --coverage",
-    "compile-js": "google-closure-compiler --strict_mode_input --compilation_level=ADVANCED --js=./js/drinks-calculator.js --js_output_file=./lib/js/drinks-calculator.min.js --process_common_js_modules",
+    "clean": "rimraf lib",
+    "mkdirs": "mkdir -p ./lib/dev/js && mkdir -p ./lib/dev/css && mkdir -p ./lib/prod/js && mkdir -p ./lib/prod/css",
+    "copy:assets": "cp ./js/*.js ./lib/dev/js && cp ./css/*.css ./lib/dev/css",
+
+    "compile-js:dev": "",
+    "compile-js:prod": "google-closure-compiler --strict_mode_input --compilation_level=ADVANCED --js=./js/drinks-calculator.js --js_output_file=./lib/prod/js/drinks-calculator.min.js --process_common_js_modules",
+    
+    "compile-html:dev": "mustache dev.json drinks-calculator.html.mustache > ./lib/dev/drinks-calculator.html",
+    "compile-html:prod": "mustache prod.json drinks-calculator.html.mustache > ./lib/prod/drinks-calculator.html",
+
+    "minify-css:prod": "postcss ./css/drinks-calculator.css > ./lib/prod/css/drinks-calculator.min.css",
+
+    "minify-html:prod": "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --use-short-doctype --minify-css true --minify-js true ./lib/prod/drinks-calculator.html > ./lib/prod/drinks-calculator.min.html",
+
+    "prebuild:dev": "npm run clean && npm run mkdirs",
+    "build:dev": "npm run mkdirs && npm run copy:assets && npm run compile-html:dev",
+
+    "build:prod": "npm run eslint && npm run stylelint && npm run compile-js:prod && npm run minify-css:prod && npm run compile-html:prod && npm run minify-html:prod",
+
     "eslint": "eslint ./js/drinks-calculator.js ./tests/drinks-calculator.test.js",
     "stylelint": "stylelint ./css/*.css",
-    "minifycss": "postcss css/drinks-calculator.css > lib/css/drinks-calculator.min.css",
-    "minifyhtml": "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --use-short-doctype --minify-css true --minify-js true drinks-calculator.html > lib/drinks-calculator.min.html",
-    "build": "npm run eslint && npm run stylelint && npm run compile-js && npm run minifycss && npm run minifyhtml"
+    "test": "jest",
+    "test-coverage": "jest --coverage",
+
+    "watch:html": "onchange './*.mustache' -- npm run compile-html:dev",
+    "watch:css": "onchange './css/*.css' -- npm run copy:assets",
+    "watch:js": "onchange './js/*.js' -- npm run copy:assets",
+    "watch": "parallelshell 'npm run watch:css' 'npm run watch:js' 'npm run watch:html'"
   },
   "devDependencies": {
     "cssnano": "^4.1.10",
-    "eslint": "^6.4.0",
+    "eslint": "^6.6.0",
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^9.2.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "google-closure-compiler": "^20190819.0.0",
+    "google-closure-compiler": "^20191111.0.0",
     "jest": "^24.9.0",
-    "stylelint": "^11.0.0"
+    "stylelint": "^11.1.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "mustache": "^3.1.0"
+  }
 }

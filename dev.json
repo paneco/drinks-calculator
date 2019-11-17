@@ -1,0 +1,6 @@
+{
+  "file": {
+    "js": "./js/drinks-calculator.js",
+    "stylesheet": "./css/drinks-calculator.css"
+  }
+}

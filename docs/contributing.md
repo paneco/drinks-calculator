@@ -14,6 +14,8 @@
     - [Use a Consistent Coding Style](#use-a-consistent-coding-style)
     - [Running Tests](#running-tests)
     - [Building](#building)
+      - [Development Mode](#development-mode)
+      - [Production Mode](#production-mode)
   - [License](#license)
   - [Final Words](#final-words)
 
@@ -101,17 +103,26 @@ npm run test
 ```
 
 ### Building
-To minify the javascript files run:
+There are 2 build options. One for development mode (which does not minify the code to make it easier to debug) and one for production.
+
+#### Development Mode
+The simplest way to build the code is to run:
 ```
-npm run compile-js
+npm run clean
+npm run build:dev
 ```
-To minify the CSS files run:
+This will copy the files to .lib/dev directory where you can execute the unminified version of the code. Otherwise run
 ```
-npm run minify-css
+npm run
 ```
-To minify the HTML files run:
+to see the available scripts. There are also watchers you can register that will auto-update code as you make changes.
+
+
+#### Production Mode
+The simplest way to build the code for release is to run:
 ```
-npm run minify-html
+npm run clean
+npm run build:prod
 ```
 
 
