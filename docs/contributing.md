@@ -70,7 +70,7 @@ Try to use one of the templates provided.
 ### Prerequisites
 The following prerequisites are needed by `drinks-calculator`. See the documentation for each regarding installation.
 
-* [npm]()
+* [npm](https://www.npmjs.com/)
 
 The following prerequisites can be executed via npm:
 * [stylelint](https://stylelint.io)
@@ -79,6 +79,7 @@ The following prerequisites can be executed via npm:
 * [Jest](https://jestjs.io/)
 * [cssnano](https://cssnano.co/)
 * [htmlminifier](https://kangax.github.io/html-minifier/)
+* [mustache](https://github.com/janl/mustache.js)
 
 ### Setup
 Pull the code and create a branch.
@@ -111,11 +112,12 @@ The simplest way to build the code is to run:
 npm run clean
 npm run build:dev
 ```
-This will copy the files to .lib/dev directory where you can execute the unminified version of the code. Otherwise run
+This will copy the files to `.lib/dev` directory where you can execute the unminified version of the code. Otherwise execute the following command to see the available scripts:
 ```
 npm run
 ```
-to see the available scripts. There are also watchers you can register that will auto-update code as you make changes.
+
+There are also watchers you can register that will auto-update code as you make changes.
 
 
 #### Production Mode
@@ -124,7 +126,7 @@ The simplest way to build the code for release is to run:
 npm run clean
 npm run build:prod
 ```
-
+This will minify and copy the files to the `.lib/prod` directory where you can execute the unminified version of the code
 
 ## License
 By contributing, you agree that your contributions will be licensed under its LGPL V3 License.
