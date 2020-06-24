@@ -15,7 +15,7 @@
 ## Introduction
 The Paneco Drinks Calculator is a free to use embeddable HTML widget for calculating the number and type of alcoholic beverages for any social event or party. It allows you to select the number of guests, duration of your event and your drink preferences.
 
-You are free to use this widget on your website or application.
+You are free to use this widget on your website or application as per the license.
 
 ## Example:
 See this codepen for a live demo:
@@ -41,6 +41,7 @@ You may need to adjust the height attribute, depending on your font size.
 3. Choose your liquor preferences using the Wine, Beer, Spirits and Champagne sliders
 4. Select any advanced options preferences you might have
 5. Click Calculate
+6. Voila, an estimate of the number and type of alcoholic beverages is shown!
 
 ## Developers 
 See our contributing guide [here](https://github.com/paneco/drinks-calculator/blob/master/docs/contributing.md)

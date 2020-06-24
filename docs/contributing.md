@@ -104,18 +104,17 @@ npm run test
 ```
 
 ### Building
-There are 2 build options. One for development mode (which does not minify the code to make it easier to debug) and one for production.
+There are 2 build options. One for development mode (which does not minify the code to make it easier to debug) and one for production. Execute the following command to see the full list of available scripts:
+```
+npm run
+```
 
 #### Development Mode
 The simplest way to build the code is to run:
 ```
-npm run clean
 npm run build:dev
 ```
-This will copy the files to `.lib/dev` directory where you can execute the unminified version of the code. Otherwise execute the following command to see the available scripts:
-```
-npm run
-```
+This will first clean up and remove the existing transpiled code and then copy the files to `.lib/dev` directory where you can execute the unminified version of the code. 
 
 There are also watchers you can register that will auto-update code as you make changes.
 
@@ -123,10 +122,9 @@ There are also watchers you can register that will auto-update code as you make 
 #### Production Mode
 The simplest way to build the code for release is to run:
 ```
-npm run clean
 npm run build:prod
 ```
-This will minify and copy the files to the `.lib/prod` directory where you can execute the unminified version of the code
+This will first clean up and remove the existing transpiled code and then minify and copy the files to the `.lib/prod` directory where you can execute the unminified version of the code
 
 ## License
 By contributing, you agree that your contributions will be licensed under its LGPL V3 License.
