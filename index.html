@@ -6,15 +6,19 @@
   <title>Sample page for Drinks Calculator</title>
   <link rel="stylesheet" type="text/css" href="./index-parent.css"/>
 </head>
+
 <body>
+  <header class="dc-sample-page-header">Paneco Logo</header>
   <h1>Paneco Drinks Calculator Sample</h1>
   <div>
-    Test usage of the calculator 
+    <p>Test usage of the calculator</p>
   </div>
   <!-- Paneco.com Drinks Calculator Widget -->
-  <object type="text/html" data="./lib/dev/drinks-calculator.html" height="1500" width="100%" title="Paneco Drinks Calculator">
-  </object>
-  <!-- <object type="text/html" data="./lib/prod/drinks-calculator.min.html" height="1500" width="100%" title="Paneco Drinks Calculator">
-  </object> -->
+  <div class="dc-embedded-container">
+    <object id="paneco-dc-drink-calculator" type="text/html" data="./lib/dev/drinks-calculator.html" height="1500" width="100%" title="Paneco Drinks Calculator">
+    </object>
+    <!-- <object type="text/html" data="./lib/prod/drinks-calculator.min.html" height="1500" width="100%" title="Paneco Drinks Calculator">
+    </object> -->
+  </div>
 </body>
 </html>
