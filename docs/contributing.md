@@ -13,6 +13,7 @@
     - [Setup](#setup)
     - [Use a Consistent Coding Style](#use-a-consistent-coding-style)
     - [Running Tests](#running-tests)
+    - [Making Changes & Debugging](#making-changes--debugging)
     - [Building](#building)
       - [Development Mode](#development-mode)
       - [Production Mode](#production-mode)
@@ -102,6 +103,13 @@ To run the Jest tests use:
 ```
 npm run test
 ```
+
+### Making Changes & Debugging
+If you want to make changes to the code and see them in real time without having to compile the code you can register a watcher and this will listen for changes you make. To register the watcher run the following command:
+```
+npm run watch
+```
+Once you have run the commmand you can make changes to the JS, CSS or Mustache templates and see them in real time on your browser for easy debugging.
 
 ### Building
 There are 2 build options. One for development mode (which does not minify the code to make it easier to debug) and one for production. Execute the following command to see the full list of available scripts:
