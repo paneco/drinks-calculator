@@ -38,8 +38,8 @@
 }
 
 .dc-number-field {
-  display: block;
-  width: 100%;
+  display: inline-block;
+  width: 90%;
 }
 
 .dc-input-field-label {
@@ -59,7 +59,7 @@
 }
 
 .dc-time-picker-field {
-  width: 70%;
+  width: 65%;
 }
 
 .dc-event-details {
