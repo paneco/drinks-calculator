@@ -99,7 +99,7 @@
   margin-bottom: 0.2em;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: safe center;
 }
 
 .dc-range-selector {
@@ -149,7 +149,7 @@
   padding-left: 5.8em;
 }
 
-.dc-results-dl dt {
+.dc-results-important {
   font-weight: bolder;
   font-size: larger;
 }

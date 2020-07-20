@@ -250,6 +250,9 @@ function calculateDrinks() {
   var guests = document.getElementById('dc-guests').valueAsNumber;
   var hours = getHours();
 
+  var durationElement = document.getElementById('dc-calculated-results-duration');
+  durationElement.value = hours;
+
   var results = calculateWineBottles(guests, hours);
   setResults(results);
 
@@ -264,6 +267,7 @@ function calculateDrinks() {
 
   var resultsElement = document.getElementById('dc-calculated-results');
   resultsElement.style.display = 'block';
+  resultsElement.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
 
   return false;
 }
