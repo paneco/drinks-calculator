@@ -6,6 +6,7 @@
   - [Introduction](#introduction)
   - [Example:](#example)
   - [Installation](#installation)
+    - [Points of Note:](#points-of-note)
   - [Usage](#usage)
   - [Developers](#developers)
   - [Contributing & Bug Reports](#contributing--bug-reports)
@@ -32,13 +33,16 @@ Follow these instructions to install the Drinks Calculator Widget. Installation 
 ```
 3. Load your page and check everything is ok.
 
+### Points of Note:
 You may need to adjust the height attribute, depending on your font size.
+
+You may need to adjust the width attribute, depending on your page layout/design.
 
 ## Usage
 
 1. Enter the number of guests
-2. Enter number of hours and minutes up to maximum values
-3. Choose your liquor preferences using the Wine, Beer, Spirits and Champagne sliders
+2. Enter number of hours and minutes up to the maximum values
+3. Choose your alcohol preferences using the Wine, Beer, Spirits and Champagne sliders
 4. Select any advanced options preferences you might have
 5. Click Calculate
 6. Voila, an estimate of the number and type of alcoholic beverages is shown!
