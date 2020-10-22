@@ -19,6 +19,9 @@ The Paneco Drinks Calculator is a free to use embeddable HTML widget for calcula
 You are free to use this widget on your website or application as per the license.
 
 ## Example:
+The project website has a working sample available here:
+https://paneco.github.io/drinks-calculator/
+
 See this codepen for a live demo:
 
 ## Installation
