@@ -21,19 +21,16 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "Log level: ${{ github.event.inputs.logLevel }}"
-          echo "Tags: ${{ github.event.inputs.tags }}"
-          echo "Version: ${{ github.event.inputs.version }}" :
       - name: Checkout 🛎️
         uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
         with:
           persist-credentials: false
 
       - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
-      - run: npm ci
-      - run: npm run build:prod --if-present
-      - run: npm test
+      - run: |
+          npm ci
+          npm run build:prod --if-present
+          npm test
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
