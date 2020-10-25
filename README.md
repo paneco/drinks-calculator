@@ -1,6 +1,6 @@
 # Drinks Calculator - Free Event Calculator
 
-![.github/workflows/deploy-job.yml](https://github.com/paneco/drinks-calculator/workflows/.github/workflows/deploy-job.yml/badge.svg)
+![drinks-calculator Deploy](https://github.com/paneco/drinks-calculator/workflows/drinks-calculator%20Deploy/badge.svg)
 ![drinks-calculator CI](https://github.com/paneco/drinks-calculator/workflows/drinks-calculator%20CI/badge.svg)
 
 ## Table of Contents
