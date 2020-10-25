@@ -32,27 +32,20 @@
     "clean": "rimraf lib",
     "mkdirs": "mkdir -p ./lib/dev/js && mkdir -p ./lib/dev/css && mkdir -p ./lib/prod/js && mkdir -p ./lib/prod/css",
     "copy:assets": "cp ./js/*.js ./lib/dev/js && cp ./css/*.css ./lib/dev/css",
-
     "compile-js:dev": "",
     "compile-js:prod": "google-closure-compiler --strict_mode_input --compilation_level=ADVANCED --js=./js/drinks-calculator.js --js_output_file=./lib/prod/js/drinks-calculator.min.js --process_common_js_modules",
-    
     "compile-html:dev": "mustache dev.json drinks-calculator.html.mustache > ./lib/dev/drinks-calculator.html",
     "compile-html:prod": "mustache prod.json drinks-calculator.html.mustache > ./lib/prod/drinks-calculator.html",
-
     "minify-css:prod": "postcss ./css/drinks-calculator.css > ./lib/prod/css/drinks-calculator.min.css",
-
     "minify-html:prod": "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --use-short-doctype --minify-css true --minify-js true ./lib/prod/drinks-calculator.html > ./lib/prod/drinks-calculator.min.html",
-
     "prebuild:dev": "npm run clean && npm run mkdirs",
     "build:dev": "npm run mkdirs && npm run copy:assets && npm run compile-html:dev",
-
+    "prebuild:prod": "npm run clean && npm run mkdirs",
     "build:prod": "npm run eslint && npm run stylelint && npm run compile-js:prod && npm run minify-css:prod && npm run compile-html:prod && npm run minify-html:prod",
-
     "eslint": "eslint ./js/drinks-calculator.js ./tests/drinks-calculator.test.js",
     "stylelint": "stylelint ./css/*.css",
     "test": "jest",
     "test-coverage": "jest --coverage",
-
     "watch:html": "onchange './*.mustache' -- npm run compile-html:dev",
     "watch:css": "onchange './css/*.css' -- npm run copy:assets",
     "watch:js": "onchange './js/*.js' -- npm run copy:assets",
@@ -60,17 +53,21 @@
   },
   "devDependencies": {
     "cssnano": "^4.1.10",
-    "eslint": "^6.6.0",
-    "eslint-config-standard": "^13.0.1",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^9.2.0",
+    "eslint": "^7.12.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "google-closure-compiler": "^20191111.0.0",
-    "jest": "^24.9.0",
-    "stylelint": "^11.1.1"
+    "eslint-plugin-standard": "^4.0.2",
+    "google-closure-compiler": "^20200614.0.0",
+    "html-minifier": "^4.0.0",
+    "jest": "^26.6.1",
+    "mustache": "^4.0.1",
+    "postcss": "^8.1.4",
+    "postcss-cli": "^8.1.0",
+    "rimraf": "^3.0.2",
+    "stylelint": "^13.7.2",
+    "stylelint-config-standard": "^20.0.0"
   },
-  "dependencies": {
-    "mustache": "^3.1.0"
-  }
+  "dependencies": {}
 }

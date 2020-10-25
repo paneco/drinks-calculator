@@ -13,6 +13,7 @@
     - [Setup](#setup)
     - [Use a Consistent Coding Style](#use-a-consistent-coding-style)
     - [Running Tests](#running-tests)
+    - [Making Changes & Debugging](#making-changes--debugging)
     - [Building](#building)
       - [Development Mode](#development-mode)
       - [Production Mode](#production-mode)
@@ -103,19 +104,25 @@ To run the Jest tests use:
 npm run test
 ```
 
+### Making Changes & Debugging
+If you want to make changes to the code and see them in real time without having to compile the code you can register a watcher and this will listen for changes you make. To register the watcher run the following command:
+```
+npm run watch
+```
+Once you have run the commmand you can make changes to the JS, CSS or Mustache templates and see them in real time on your browser for easy debugging.
+
 ### Building
-There are 2 build options. One for development mode (which does not minify the code to make it easier to debug) and one for production.
+There are 2 build options. One for development mode (which does not minify the code to make it easier to debug) and one for production. Execute the following command to see the full list of available scripts:
+```
+npm run
+```
 
 #### Development Mode
 The simplest way to build the code is to run:
 ```
-npm run clean
 npm run build:dev
 ```
-This will copy the files to `.lib/dev` directory where you can execute the unminified version of the code. Otherwise execute the following command to see the available scripts:
-```
-npm run
-```
+This will first clean up and remove the existing transpiled code and then copy the files to `.lib/dev` directory where you can execute the unminified version of the code. 
 
 There are also watchers you can register that will auto-update code as you make changes.
 
@@ -123,10 +130,9 @@ There are also watchers you can register that will auto-update code as you make 
 #### Production Mode
 The simplest way to build the code for release is to run:
 ```
-npm run clean
 npm run build:prod
 ```
-This will minify and copy the files to the `.lib/prod` directory where you can execute the unminified version of the code
+This will first clean up and remove the existing transpiled code and then minify and copy the files to the `.lib/prod` directory where you can execute the unminified version of the code
 
 ## License
 By contributing, you agree that your contributions will be licensed under its LGPL V3 License.

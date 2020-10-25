@@ -2,7 +2,7 @@
 
 .dc-main-container {
   margin: 0.2em;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .dc-form-field-title {
@@ -38,8 +38,8 @@
 }
 
 .dc-number-field {
-  display: block;
-  width: 100%;
+  display: inline-block;
+  width: 90%;
 }
 
 .dc-input-field-label {
@@ -59,7 +59,7 @@
 }
 
 .dc-time-picker-field {
-  width: 70%;
+  width: 65%;
 }
 
 .dc-event-details {
@@ -99,7 +99,7 @@
   margin-bottom: 0.2em;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: safe center;
 }
 
 .dc-range-selector {
@@ -149,7 +149,7 @@
   padding-left: 5.8em;
 }
 
-.dc-results-dl dt {
+.dc-results-important {
   font-weight: bolder;
   font-size: larger;
 }

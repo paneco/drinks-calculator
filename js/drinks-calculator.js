@@ -3,7 +3,7 @@
 /**
  * @const
  */
-const STANDARD_DRINKS = { wine: 150, beer: 330, spirits: 30, champagne: 150 };
+const STANDARD_DRINKS = { wine: 150, beer: 330, spirits: 30, champagne: 135 };
 /**
  * @const
  */
@@ -12,7 +12,7 @@ const STANDARD_BOTTLE_SIZE = { wine: 750, beer: 7920, spirits: 750, champagne: 7
  * The number of drinks per hour for a liquor that one person can consume
  * @const
  */
-const CONSUMPTION_RATE = { wine: 1.2, beer: 1.9, spirits: 1.2, champagne: 1.3 };
+const CONSUMPTION_RATE = { wine: 1.2, beer: 1.6, spirits: 1.2, champagne: 1.3 };
 /**
  * The configuration of unit types for each drink type
  * @const
@@ -45,6 +45,14 @@ const SUFFIX_IS_LOCKED = '-is-locked';
  * @const {string}
  */
 const SUFFIX_IS_REQUIRED = '-is-required';
+/**
+ * @const {string}
+ */
+const SUFFIX_TOTAL = '-total';
+/**
+ * @const {string}
+ */
+const SUFFIX_OUTPUT = '-output';
 
 function toggleLockedRange(target, rangeFieldId) {
   var rangeField = document.getElementById(rangeFieldId);
@@ -99,7 +107,7 @@ function calculateUnitResults(containerId, selectorQuery, liquorType, percentage
   }
   var tempTotal = (nodeUnitsTotal==0)? units: nodeUnitsTotal;
   
-  results[containerId+'-total'] = `${tempTotal} ${(tempTotal==1)?unitType.single: unitType.plural}`;
+  results[containerId+SUFFIX_TOTAL] = `${tempTotal} ${(tempTotal==1)?unitType.single: unitType.plural}`;
 
   return results;
 }
@@ -217,7 +225,7 @@ function setPreferences(inputId, output) {
     var isLocked = document.getElementById(preference+SUFFIX_IS_LOCKED).checked;
     
     preferenceElement.value = getPreferenceValue(preferenceElement.value, remainderSum, balance, isLocked, otherAvailablePreferencesCount);
-    setOtherRangesOutput(preferenceElement, document.getElementById(preference+'-output'), balance, isLocked);
+    setOtherRangesOutput(preferenceElement, document.getElementById(preference+SUFFIX_OUTPUT), balance, isLocked);
   });
 }
 
@@ -242,6 +250,9 @@ function calculateDrinks() {
   var guests = document.getElementById('dc-guests').valueAsNumber;
   var hours = getHours();
 
+  var durationElement = document.getElementById('dc-calculated-results-duration');
+  durationElement.value = hours;
+
   var results = calculateWineBottles(guests, hours);
   setResults(results);
 
@@ -256,6 +267,7 @@ function calculateDrinks() {
 
   var resultsElement = document.getElementById('dc-calculated-results');
   resultsElement.style.display = 'block';
+  resultsElement.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
 
   return false;
 }
