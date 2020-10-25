@@ -48,9 +48,11 @@ h1 {
   color: white;
   font-size: 0.9em;
 }
+
 .dc-sample-page-footer ul {
   list-style-type: none;
 }
+
 .dc-sample-page-footer a {
   color: white;
   text-decoration: none;

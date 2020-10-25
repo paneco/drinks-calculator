@@ -26,6 +26,7 @@ The project website has a working sample available here:
 https://paneco.github.io/drinks-calculator/
 
 See this codepen for a live demo:
+https://codepen.io/ben_paneco/pen/LYZWYQj
 
 ## Installation
 Follow these instructions to install the Drinks Calculator Widget. Installation is really simple.
@@ -34,7 +35,7 @@ Follow these instructions to install the Drinks Calculator Widget. Installation 
 2. In the page you wish have the calculator, add the following code:
 ```
   <!-- Paneco.com Drinks Calculator Widget -->
-  <object type="text/html" data="<server>/drinks-calculator.html" height="1500" width="100%" title="Paneco Drinks Calculator">
+  <object id="paneco-dc-drink-calculator" type="text/html" data="https://paneco.github.io/drinks-calculator/lib/prod/drinks-calculator.min.html" height="1500" width="100%" title="Paneco Drinks Calculator">
   </object>
 ```
 3. Load your page and check everything is ok.
