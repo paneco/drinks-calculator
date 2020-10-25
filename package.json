@@ -62,6 +62,7 @@
     "google-closure-compiler": "^20200614.0.0",
     "jest": "^26.6.1",
     "mustache": "^4.0.1",
+    "postcss": "^8.1.4",
     "rimraf": "^3.0.2",
     "stylelint": "^13.7.2",
     "stylelint-config-standard": "^20.0.0"
