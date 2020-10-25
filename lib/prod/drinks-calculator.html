@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>Paneco Drinks Calculator</title>
+<link rel="stylesheet" type="text/css" href="./css/drinks-calculator.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-12/css/all.min.css"/>
+</head>
+<body>
+<main>
+<article id="dc-widget" class="dc-main-container">
+  <h2 id="dc-widget-heading">Drinks Calculator</h2>
+  <section id="dc-intro" class="dc-intro-container">
+    <h3>Planning a party?</h3>
+    <div class="dc-intro-text">
+        <span>Accurately plan how many drinks you will need for your </span>
+        <span class="dc-opening">[</span>
+    </div>
+    <div class="dc-slider-container">
+      <div class="mask">
+        <ul>
+          <li class="dc-slider-effect1">Party</li>
+          <li class="dc-slider-effect2">Wedding</li>
+          <li class="dc-slider-effect3">BBQ</li>
+          <li class="dc-slider-effect4">Event</li>
+          <li class="dc-slider-effect5">Celebration</li>
+        </ul>
+      </div>
+    </div>
+    <div class="dc-intro-text"><span class="dc-closing">]</span></div>
+  </section>
+  <datalist id="dc-tickmarks">
+    <option value="0" label="0%">
+    <option value="10">
+    <option value="20">
+    <option value="30">
+    <option value="40">
+    <option value="50" label="50%">
+    <option value="60">
+    <option value="70">
+    <option value="80">
+    <option value="90">
+    <option value="100" label="100%">
+  </datalist>
+  <form id="dc-form" method="get" onsubmit="calculateDrinks(); return false">
+    <fieldset id="dc-input-container" class="dc-form-fields">
+      <legend class="dc-form-field-title">Drink Calculator</legend>
+      <section>
+        <h3>Details of your event:</h3>
+        <div class="dc-event-details">
+          <label id="dc-guests-label" for="dc-guests" class="dc-input-field-label"><span class="fas fa-user-friends">&nbsp;</span>Number of Guests:</label>
+          <input id="dc-guests" name="dc-guests" type="number" min="0" placeholder="10" required value="4" class="dc-input-field dc-number-field" autofocus/>
+        </div>
+        <div id="dc-duration" class="dc-event-details">
+          <label id="dc-duration-label" for="dc-duration-hours" class="dc-input-field-label"><span class="fas fa-hourglass-half">&nbsp;</span>Duration:</label>
+          <div id="dc-time-picker" class="dc-time-picker">
+            <div>
+              <input id="dc-duration-hours" name="dc-duration-hours" type="number" min="1" max="10" step="1" required value="1" class="dc-input-field dc-time-picker-field"/>
+              <label id="dc-duration-hours-label" for="dc-duration-hours" >Hrs</label>    
+            </div>
+            <div>
+              <input id="dc-duration-minutes" name="dc-duration-minutes" type="number" min="0" max="30" step="30" required value="0" class="dc-input-field dc-time-picker-field"/>
+              <label id="dc-duration-minutes-label" for="dc-duration-minutes" >Mins</label>  
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h3>Choose your mix of alcohol:</h3>
+        <fieldset id="dc-spirits-preferences" class="dc-liquor-preferences">
+          <legend><span class="fas fa-glass-whiskey">&nbsp;</span>Spirits Needs</legend>
+          <div class="dc-preference-range-selector">
+            <label id="dc-spirits-label" for="dc-spirits-range" class="dc-range-selector-label">Spirits:</label>
+            <input id="dc-spirits-range" name="dc-spirits-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="spirits"
+              oninput="setPreferences(this.id, getElementById('dc-spirits-range-output'))"/>
+            <div class="dc-range-selector-lock">
+              <label id="dc-spirits-range-is-locked-label" for="dc-spirits-range-is-locked" class="dc-locked-checkbox">
+                <input id="dc-spirits-range-is-locked" name="dc-spirits-range-is-locked" type="checkbox" class="checkbox-lock" onclick="toggleLockedRange(this,'dc-spirits-range')"/>
+                <span class="fas fa-fw fa-lock-open unchecked"></span>
+                <span class="fas fa-fw fa-lock checked"></span>
+              </label>
+              <output id="dc-spirits-range-output" for="dc-spirits-range" name="dc-spirits-range-output">25</output>%
+            </div>
+          </div>
+          <details id="dc-spirits-types" class="dc-liquor-options">
+            <summary>Type Of Spirits:</summary>
+            <div class="dc-liquor-option">
+              <input type="checkbox" id="dc-whisky" name="dc-spirits-preference" value="whisky" data-parent-id="dc-spirits-range"/>
+              <label id="dc-whisky-label" for="dc-whisky">Whisky</label>
+            </div>
+            <div class="dc-liquor-option">
+              <input type="checkbox" id="dc-vodka" name="dc-spirits-preference" value="vodka" data-parent-id="dc-spirits-range"/>
+              <label id="dc-vodka-label" for="dc-vodka">Vodka</label>
+            </div>
+            <div class="dc-liquor-option">
+              <input type="checkbox" id="dc-cognac" name="dc-spirits-preference" value="cognac" data-parent-id="dc-spirits-range"/>
+              <label id="dc-cognac-label" for="dc-cognac">Cognac</label>
+            </div>
+            <div class="dc-liquor-option">
+              <input type="checkbox" id="dc-rum" name="dc-spirits-preference" value="rum" data-parent-id="dc-spirits-range"/>
+              <label id="dc-rum-label" for="dc-rum">Rum</label>
+            </div>
+            <div class="dc-liquor-option">
+              <input type="checkbox" id="dc-gin" name="dc-spirits-preference" value="gin" data-parent-id="dc-spirits-range"/>
+              <label id="dc-gin-label" for="dc-gin">Gin</label>
+            </div>
+            <div class="dc-liquor-option">
+              <input type="checkbox" id="dc-tequila" name="dc-spirits-preference" value="tequila" data-parent-id="dc-spirits-range"/>
+              <label id="dc-tequila-label" for="dc-tequila">Tequila</label>
+            </div>
+          </details>
+        </fieldset>
+        <fieldset id="dc-wine-preferences" class="dc-liquor-preferences">
+          <legend><span class="fas fa-wine-glass-alt">&nbsp;</span>Wine Needs</legend>
+          <div class="dc-preference-range-selector">
+            <label id="dc-wine-range-label" for="dc-wine-range" class="dc-range-selector-label">Wine:</label>
+            <input id="dc-wine-range" name="dc-wine-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="wine"
+              oninput="setPreferences(this.id, getElementById('dc-wine-range-output'))"/>
+            <div class="dc-range-selector-lock">
+              <label id="dc-wine-range-is-locked-label" for="dc-wine-range-is-locked" class="dc-locked-checkbox">
+                <input id="dc-wine-range-is-locked" name="dc-wine-range-is-locked" type="checkbox" class="checkbox-lock" onclick="toggleLockedRange(this,'dc-wine-range')"/>
+                <span class="fas fa-fw fa-lock-open unchecked"></span>
+                <span class="fas fa-fw fa-lock checked"></span>
+              </label>
+              <output id="dc-wine-range-output" for="dc-wine-range" name="dc-wine-range-output">25</output>%
+            </div>
+          </div>
+          <details id="dc-wine-types" class="dc-liquor-options">
+            <summary>Type Of Wines:</summary>
+            <div class="dc-liquor-option">
+              <input type="checkbox" id="dc-red-wine" name="dc-wine-preference" value="red-wine" data-parent-id="dc-wine-range"/>
+              <label id="dc-red-wine-label" for="dc-red-wine">Red Wine</label>
+            </div>
+            <div class="dc-liquor-option">
+              <input type="checkbox" id="dc-white-wine" name="dc-wine-preference" value="white-wine" data-parent-id="dc-wine-range"/>
+              <label id="dc-white-wine-label" for="dc-white-wine">White Wine</label>
+            </div>
+          </details>
+        </fieldset>
+        <fieldset id="dc-beer-preferences" class="dc-liquor-preferences">
+          <legend><span class="fas fa-beer">&nbsp;</span>Beer Needs</legend>
+          <div class="dc-preference-range-selector">
+            <label id="dc-beer-label" for="dc-beer-range" class="dc-range-selector-label">Beer:</label>
+            <input id="dc-beer-range" name="dc-beer-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="beer"
+              oninput="setPreferences(this.id, getElementById('dc-beer-range-output'))"/>
+            <div class="dc-range-selector-lock">
+              <label id="dc-beer-range-is-locked-label" for="dc-beer-range-is-locked" class="dc-locked-checkbox">
+                <input id="dc-beer-range-is-locked" name="dc-beer-range-is-locked" type="checkbox" class="checkbox-lock" onclick="toggleLockedRange(this,'dc-beer-range')"/>
+                <span class="fas fa-fw fa-lock-open unchecked"></span>
+                <span class="fas fa-fw fa-lock checked"></span>
+              </label>
+              <output id="dc-beer-range-output" for="dc-beer-range" name="dc-beer-range-output">25</output>%
+            </div>
+          </div>
+          <details id="dc-beer-types" class="dc-liquor-options">
+            <summary>Type Of Beers:</summary>
+            <div class="dc-liquor-option">
+              <input type="checkbox" id="dc-lager" name="dc-beer-preference" value="lager" data-parent-id="dc-beer-range"/>
+              <label id="dc-lager-label" for="dc-lager">Lager</label>
+            </div>
+            <div class="dc-liquor-option">
+              <input type="checkbox" id="dc-ale" name="dc-beer-preference" value="ale" data-parent-id="dc-beer-range"/>
+              <label id="dc-ale-label" for="dc-ale">Ale</label>
+            </div>
+          </details>
+        </fieldset>
+        <fieldset id="dc-champagne-preferences" class="dc-liquor-preferences">
+          <legend><span class="fas fa-wine-glass">&nbsp;</span>Champagne Needs</legend>
+          <div class="dc-preference-range-selector">
+            <label id="dc-champagne-label" for="dc-champagne-range" class="dc-range-selector-label">Champagne:</label>
+            <input id="dc-champagne-range" name="dc-champagne-range" type="range" min="0" max="100" value="25" list="dc-tickmarks" class="dc-range-selector" data-dc-liquor-preference="champagne"
+              oninput="setPreferences(this.id, getElementById('dc-champagne-range-output'))"/>
+            <div class="dc-range-selector-lock">
+              <label id="dc-champagne-range-is-locked-label" for="dc-champagne-range-is-locked" class="dc-locked-checkbox">
+                <input id="dc-champagne-range-is-locked" name="dc-champagne-range-is-locked" type="checkbox" class="checkbox-lock" onclick="toggleLockedRange(this,'dc-champagne-range')"/>
+                <span class="fas fa-fw fa-lock-open unchecked"></span>
+                <span class="fas fa-fw fa-lock checked"></span>
+              </label>
+              <output id="dc-champagne-range-output" for="dc-champagne-range" name="dc-champagne-range-output">25</output>%
+            </div>
+          </div>
+        </fieldset>
+      </section>
+      <div class="dc-form-buttons-block">
+        <input id="dc-submit-button" type="submit" value="Calculate"/>
+      </div>
+    </fieldset>
+  </form>
+  <section id="dc-calculated-results" class="dc-results">
+    <h3>Here's what you'll need</h3>
+    <p>Over a period of <output id="dc-calculated-results-duration" for="dc-duration" name="dc-calculated-results-duration" class="dc-results-important">0</output> hours, your guests will drink approximately:</p>
+    <dl id="dc-wine-results" class="dc-results-dl">
+      <dt class="dc-results-important"><span class="fas fa-wine-glass-alt"></span>&nbsp;<output id="dc-wine-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-wine-results-total">0</output> (750ml) of Wine</dt>
+      <dd><output id="dc-wine-results-red-wine" for="dc-red-wine" name="dc-wine-results-red-wine">0</output> x Red Wine</dd>
+      <dd><output id="dc-wine-results-white-wine" for="dc-white-wine" name="dc-wine-results-white-wine">0</output> x White Wine</dd>
+    </dl>
+    <dl id="dc-beer-results" class="dc-results-dl">
+      <dt class="dc-results-important"><span class="fas fa-beer"></span>&nbsp;<output id="dc-beer-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-beer-results-total">0</output> (24 Bottles) of Beer</dt>
+      <dd><output id="dc-beer-results-lager" for="dc-lager" name="dc-beer-results-lager">0</output> x Lager</dd>
+      <dd><output id="dc-beer-results-ale" for="dc-ale" name="dc-beer-results-ale">0</output> x Ale</dd>
+    </dl>
+    <dl id="dc-spirits-results" class="dc-results-dl">
+      <dt class="dc-results-important"><span class="fas fa-glass-whiskey"></span>&nbsp;<output id="dc-spirits-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-spirits-results-total">0</output> (750ml) of Spirits</dt>
+      <dd><output id="dc-spirits-results-whisky" for="dc-whisky" name="dc-spirits-results-whisky">0</output> x Whisky</dd>
+      <dd><output id="dc-spirits-results-vodka" for="dc-vodka" name="dc-spirits-results-vodka">0</output> x Vodka</dd>
+      <dd><output id="dc-spirits-results-cognac" for="dc-cognac" name="dc-spirits-results-cognac">0</output> x Cognac</dd>
+      <dd><output id="dc-spirits-results-rum" for="dc-rum" name="dc-spirits-results-rum">0</output> x Rum</dd>
+      <dd><output id="dc-spirits-results-gin" for="dc-gin" name="dc-spirits-results-gin">0</output> x Gin</dd>
+      <dd><output id="dc-spirits-results-tequila" for="dc-tequila" name="dc-spirits-results-tequila">0</output> x Tequila</dd>
+    </dl>
+    <dl id="dc-champagne-results" class="dc-results-dl">
+      <dt class="dc-results-important"><span class="fas fa-wine-glass"></span>&nbsp;<output id="dc-champagne-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-champagne-results-total">0</output> (750ml) of Champagne</dt>
+      <dd><output id="dc-champagne-results-champagne" for="dc-champagne-results" name="dc-champagne-results-champagne">0</output> Champagne</dd>
+    </dl>
+  </section>
+  <footer id="dc-powered-by" class="dc-powered-by">
+    <p><span>Powered By</span></p>
+    <div>
+      <a href="https://www.paneco.com.sg">
+      <svg id="dc-paneco-logo" width="140" height="30" viewBox="0 0 140 30" role="img" aria-labelledby="dc-paneco-logo-title">
+        <title id="dc-paneco-logo-title">Powered By Paneco</title>
+        <desc>Paneco logo without tagline</desc>
+        <defs>
+          <polygon id="path-1" points="11.5506081 0.0703111111 0.00267987677 0.0703111111 0.00267987677 15.9110756 11.5506081 15.9110756 11.5506081 0.0703111111"></polygon>
+          <polygon id="path-3" points="11.5907939 0.0703111111 0.0475826926 0.0703111111 0.0475826926 15.9110756 11.5907939 15.9110756"></polygon>
+        </defs>
+        <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="paneco-logo">
+            <path d="M0.28526081,13.1408267 C0.606213452,13.0649156 0.836156486,12.9392267 0.973629375,12.76376 C1.1109197,12.5887378 1.20147289,12.3106044 1.24538023,11.9294489 L1.2792464,11.6323822 L2.10846534,4.38633778 L2.14251407,4.08927111 C2.18742553,3.69300444 2.16086205,3.41478222 2.06172821,3.25478222 C1.96295951,3.09478222 1.76076664,2.97700444 1.45697529,2.90038222 L1.74470075,0.38616 L7.87109883,0.38616 L8.38758065,0.38616 C9.29311256,0.401448889 10.0095964,0.504293333 10.5353892,0.694604444 C11.0608167,0.885448889 11.5022636,1.20144889 11.8588167,1.64322667 C12.0359067,1.87176 12.1842423,2.14998222 12.3030933,2.47762667 C12.4220357,2.80536 12.5022739,3.12900444 12.5439904,3.44918222 C12.5907275,3.86047111 12.5561311,4.57682667 12.439197,5.59771556 C12.384792,6.07042667 12.3302045,6.47780444 12.2757996,6.82082667 C12.2205731,7.16340444 12.1588655,7.46064889 12.0918634,7.71220444 C12.0234008,7.96367111 11.9470879,8.18856 11.8616465,8.38651556 C11.7762965,8.58464889 11.6676692,8.78269333 11.535582,8.98082667 C11.2688518,9.39220444 10.9267213,9.75042667 10.5088257,10.0551378 C10.0905649,10.3602044 9.64765752,10.57336 9.1797385,10.6952267 C8.85613864,10.7865156 8.54823953,10.84776 8.25512835,10.8780711 C7.96165202,10.9087378 7.56511668,10.9236711 7.06451819,10.9236711 L6.68879547,10.9236711 L4.95176253,10.9236711 L4.8707941,11.6323822 L4.83674537,11.9294489 C4.80698696,12.3258933 4.83729307,12.6076711 4.92766369,12.7753156 C5.01776047,12.9431378 5.21548044,13.0649156 5.51981949,13.1408267 L5.23455868,15.6323822 L0,15.6323822 L0.28526081,13.1408267 Z M5.32584214,7.65496 L6.71097735,7.65496 L6.92202471,7.65496 C7.56347358,7.65496 8.02208167,7.51033778 8.29839671,7.22056 C8.57389019,6.93122667 8.75444887,6.41300444 8.83952505,5.66633778 C8.92505765,4.91984889 8.86325875,4.39762667 8.6549499,4.10038222 C8.44600206,3.80331556 8.02135141,3.65469333 7.37990254,3.65469333 L7.16839876,3.65469333 L5.78362869,3.65469333 L5.32584214,7.65496 Z" id="Fill-1" fill="grey"></path>
+            <path d="M24.3325736,11.7921778 C24.3516519,12.0362667 24.3796759,12.2345778 24.4176498,12.3864889 C24.4545283,12.5390222 24.498527,12.6648 24.5501021,12.7637333 C24.6012209,12.8631111 24.6666711,12.9392 24.7469093,12.9923556 C24.8269649,13.0459556 24.9344968,13.0952889 25.0705091,13.1408 L24.7850658,15.6323556 L19.4563938,15.6323556 L19.7420198,13.1408 C20.2927329,13.1104889 20.5933293,12.8744889 20.6443568,12.4322667 C20.6477342,12.4019556 20.6477342,12.3677333 20.6447219,12.3294222 C20.6409793,12.2916444 20.6313032,12.2038222 20.6156025,12.0665778 L20.6030054,11.9752889 L20.5583677,11.3351111 L17.5308605,11.3351111 L17.3166183,11.9752889 C17.2921543,12.0517333 17.270794,12.1352 17.2527198,12.2267556 C17.2340067,12.3180444 17.2214096,12.3944889 17.2145633,12.4552 C17.1655441,12.8820444 17.429262,13.1104889 18.0046217,13.1408 L17.7193609,15.6323556 L12.9309045,15.6323556 L13.2161653,13.1408 C13.4908372,13.0649778 13.6984158,12.9276444 13.8383533,12.7295111 C13.9781083,12.5316444 14.1316471,12.1808 14.2990609,11.6779556 L17.8682442,0.386133333 L23.2433794,0.386133333 L24.3325736,11.7921778 Z M19.7863835,4.13484444 L18.2044412,9.14062222 L20.340748,9.14062222 L19.7863835,4.13484444 Z" id="Fill-3" fill="grey"></path>
+            <path d="M27.3477758,13.1408267 C27.6685459,13.0649156 27.8984889,12.9392267 28.0361444,12.76376 C28.1732522,12.5887378 28.2636228,12.3106044 28.3078953,11.9294489 L28.3417614,11.6323822 L29.1707978,4.38633778 L29.204664,4.08927111 C29.2499406,3.69300444 29.2235596,3.41122667 29.1255212,3.24349333 C29.0270264,3.07584889 28.8257463,2.95398222 28.5221375,2.87771556 L28.8070332,0.38616 L32.915154,0.38616 L36.0292892,8.24927111 L36.4712837,4.38633778 L36.5053325,4.08927111 C36.5342693,3.69300444 36.5041458,3.41122667 36.414049,3.24349333 C36.3233132,3.07584889 36.1263235,2.95398222 35.8223496,2.87771556 L36.1072453,0.38616 L41.0838369,0.38616 L40.79885,2.87771556 C40.4768932,2.95398222 40.247224,3.07976 40.110025,3.25478222 C39.9725521,3.42998222 39.8819989,3.70829333 39.8384567,4.08927111 L39.804408,4.38633778 L38.5173112,15.6323822 L35.2311067,15.6323822 L32.0859351,7.63220444 L31.6281485,11.6323822 L31.5940998,11.9294489 C31.5640675,12.3258933 31.5940998,12.6076711 31.684653,12.7753156 C31.7750236,12.9431378 31.9721959,13.0649156 32.2770826,13.1408267 L31.9914567,15.6323822 L27.0621499,15.6323822 L27.3477758,13.1408267 Z" id="Fill-5" fill="grey"></path>
+            <path d="M41.8277971,13.1408267 C42.1487498,13.0649156 42.3788754,12.9392267 42.5163482,12.76376 C42.653456,12.5887378 42.7438266,12.3106044 42.7879165,11.9294489 L42.8219653,11.6323822 L43.6511842,4.38633778 L43.6848678,4.08927111 C43.7301444,3.69300444 43.7032158,3.41478222 43.6044471,3.25478222 C43.5053132,3.09478222 43.303303,2.97700444 42.9996942,2.90038222 L43.2872371,0.38616 L54.3665844,0.38616 L53.8281945,5.09487111 L50.4480593,5.09487111 L50.4610216,4.98073778 C50.5270195,4.40162667 50.4681417,3.99016 50.285027,3.74624889 C50.1012734,3.50251556 49.7361396,3.38047111 49.188804,3.38047111 L48.9065555,3.38047111 L47.3573839,3.38047111 L47.007038,6.44349333 L51.3733084,6.44349333 L51.07755,9.02642667 L46.7114622,9.02642667 L46.2980394,12.6379822 L47.8002913,12.6379822 L48.1293682,12.6379822 C48.6765212,12.6379822 49.0644759,12.5316711 49.292502,12.3180711 C49.5202542,12.1049156 49.6753448,11.7086489 49.7571348,11.1294489 L49.8250497,10.5350489 L53.2052762,10.5350489 L52.6218836,15.6323822 L41.5423537,15.6323822 L41.8277971,13.1408267 Z" id="Fill-7" fill="grey"></path>
+            <path d="M65.9009523,14.7409778 C65.1080642,15.1067556 64.2416016,15.3963556 63.3012907,15.6095111 C62.3614362,15.8228444 61.4688665,15.9296889 60.6237642,15.9296889 C59.8098809,15.9296889 59.0743188,15.8344 58.4151609,15.6439111 C57.7560031,15.4534222 57.2127752,15.1752889 56.7851122,14.8096 C56.026638,14.1849778 55.7228466,13.2248889 55.8708171,11.9295111 L55.9491383,11.2436444 L56.6946503,4.72897778 L56.7735192,4.04328889 C57.1218569,1.4072 59.0249345,0.0888888889 62.4836647,0.0888888889 C63.34392,0.0888888889 64.1567992,0.168888889 64.9209331,0.329066667 C65.6850669,0.4888 66.530443,0.759644444 67.4574266,1.14044444 L66.9658651,5.43777778 L63.5851822,5.43777778 L63.6061774,5.25484444 C63.6547402,4.82853333 63.6738185,4.52737778 63.662408,4.35191111 C63.650815,4.17706667 63.5924849,4.00533333 63.4865961,3.83777778 C63.3545089,3.62435556 63.1702989,3.45306667 62.9353353,3.32337778 C62.6996414,3.19395556 62.4409441,3.12906667 62.1592433,3.12906667 C61.8618418,3.12906667 61.5805062,3.19395556 61.315419,3.32337778 C61.0502406,3.45306667 60.8350854,3.62435556 60.6697711,3.83777778 C60.5251781,4.00533333 60.426592,4.18044444 60.3751081,4.36328889 C60.3223463,4.54613333 60.2737835,4.836 60.2283243,5.232 L60.1998439,5.48346667 L59.6270402,10.4895111 C59.5956386,10.7636444 59.5733655,10.9887111 59.5617725,11.1636444 C59.5489015,11.3390222 59.5444286,11.4835556 59.5472584,11.5979556 C59.5494492,11.7123556 59.5658802,11.8076444 59.5963689,11.8837333 C59.6268576,11.9601778 59.6678439,12.0437333 59.7202406,12.1352 C59.996373,12.5924444 60.4400106,12.8208889 61.0506057,12.8208889 C61.3474595,12.8208889 61.6280649,12.7602667 61.8926956,12.6380444 C62.1570525,12.5161778 62.3717512,12.3488 62.5373394,12.1352 C62.6812934,11.9675556 62.7791493,11.7962667 62.8306332,11.6208889 C62.8818432,11.4458667 62.931045,11.1522667 62.9784211,10.7408 L63.0071754,10.4895111 L63.1166242,9.52942222 L66.4973071,9.52942222 L65.9009523,14.7409778 Z" id="Fill-9" fill="grey"></path>
+            <g id="Group-13" transform="translate(68.919012, 0.018578)">
+              <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+              </mask>
+              <g id="Clip-12"></g>
+              <path d="M10.6109901,11.9108978 C10.5125865,12.6274311 10.3487327,13.2062756 10.1184246,13.6481422 C9.88747742,14.0902756 9.53375402,14.47872 9.05771078,14.81392 C8.51293109,15.1948978 7.90616994,15.4732089 7.23669705,15.6480533 C6.56740673,15.8232533 5.77853507,15.9110756 4.87154262,15.9110756 C3.08722485,15.9110756 1.76772244,15.5453867 0.912122581,14.81392 C0.514035415,14.46352 0.250682636,14.06352 0.122338092,13.6137422 C-0.00646286891,13.1644978 -0.0310181194,12.5965867 0.047394372,11.9108978 L0.944528209,4.07072 C1.02640947,3.35436444 1.18670323,2.77560889 1.42486177,2.33329778 C1.6631116,1.89143111 2.01217955,1.51045333 2.47087893,1.19036444 C3.01748428,0.794275556 3.62908346,0.508586667 4.30640673,0.33312 C4.98382128,0.158275556 5.7761617,0.0702755556 6.6839757,0.0702755556 C8.46792835,0.0702755556 9.77857625,0.443786667 10.6166497,1.19036444 C11.0142804,1.54112 11.2825625,1.93703111 11.4193051,2.37898667 C11.556778,2.82120889 11.5862626,3.38458667 11.5079414,4.07072 L10.6109901,11.9108978 Z M3.7695687,10.7679644 C3.72410954,11.1644089 3.70621798,11.4536533 3.71726328,11.6366756 C3.72730446,11.81952 3.78526946,11.9948089 3.8915234,12.1621867 C4.02324544,12.3759644 4.2033477,12.5472533 4.43137378,12.6765867 C4.65903473,12.8061867 4.92147467,12.8709867 5.21924132,12.8709867 C5.51609513,12.8709867 5.79724818,12.8061867 6.06288305,12.6765867 C6.32778765,12.5472533 6.54285148,12.3759644 6.70843967,12.1621867 C6.8523024,11.9948089 6.95070597,11.8234311 7.00191599,11.6478756 C7.05339986,11.4729422 7.09995443,11.2021867 7.1414884,10.8364089 L7.78512807,5.21338667 C7.83058723,4.81738667 7.84820494,4.52752 7.83788991,4.34467556 C7.82720975,4.16183111 7.76887962,3.98680889 7.66317337,3.81916444 C7.5310862,3.60583111 7.34687618,3.43445333 7.11191256,3.30485333 C6.87621867,3.17534222 6.61752135,3.11045333 6.33582059,3.11045333 C6.03841908,3.11045333 5.75708346,3.17534222 5.49199629,3.30485333 C5.22690913,3.43445333 5.01166273,3.60583111 4.84643967,3.81916444 C4.70184667,3.98680889 4.60353439,4.15845333 4.55278078,4.33338667 C4.50102306,4.50876444 4.45401208,4.78707556 4.4102873,5.16760889 L3.7695687,10.7679644 Z" id="Fill-11" fill="grey" mask="url(#mask-2)"></path>
+            </g>
+            <path d="M84.5288483,12.5466756 C84.9983191,12.5466756 85.379245,12.7066756 85.6711695,13.0265867 C85.9630027,13.3467644 86.0829492,13.7353867 86.0305525,14.1924533 C85.9798902,14.6345867 85.7716726,15.0192978 85.4056259,15.3466756 C85.0396706,15.6742311 84.6215923,15.83832 84.1519389,15.83832 C83.6830158,15.83832 83.3021812,15.6742311 83.0110782,15.3466756 C82.7203404,15.0192978 82.599755,14.6345867 82.6505999,14.1924533 C82.702814,13.7353867 82.9115793,13.3467644 83.2768957,13.0265867 C83.6418469,12.7066756 84.0595601,12.5466756 84.5288483,12.5466756" id="Fill-14" fill="grey"></path>
+            <path d="M99.7004331,14.7409778 C98.9073624,15.1067556 98.0408998,15.3963556 97.1006802,15.6095111 C96.160917,15.8228444 95.2685299,15.9296889 94.4234276,15.9296889 C93.6095443,15.9296889 92.8734345,15.8344 92.2142766,15.6439111 C91.55521,15.4534222 91.0120734,15.1752889 90.584593,14.8096 C89.8261187,14.1849778 89.5219623,13.2248889 89.6702979,11.9295111 L89.7486191,11.2436444 L90.4940398,4.72897778 L90.5722697,4.04328889 C90.9209725,1.4072 92.8240501,0.0888888889 96.2828717,0.0888888889 C97.1434008,0.0888888889 97.9559149,0.168888889 98.7200487,0.329066667 C99.4843651,0.4888 100.329833,0.759644444 101.256725,1.14044444 L100.764981,5.43777778 L97.3844804,5.43777778 L97.4054756,5.25484444 C97.454221,4.82853333 97.4732992,4.52737778 97.4617062,4.35191111 C97.4502958,4.17706667 97.3917831,4.00533333 97.2858943,3.83777778 C97.1536246,3.62435556 96.9694146,3.45306667 96.7346335,3.32337778 C96.4989396,3.19395556 96.2400597,3.12906667 95.9585415,3.12906667 C95.6609574,3.12906667 95.3798044,3.19395556 95.1147172,3.32337778 C94.8493562,3.45306667 94.6343837,3.62435556 94.4688868,3.83777778 C94.3244763,4.00533333 94.2258902,4.18044444 94.1744063,4.36328889 C94.121827,4.54613333 94.073173,4.836 94.0275312,5.232 L93.9989595,5.48346667 L93.4265209,10.4895111 C93.3951194,10.7636444 93.3728463,10.9887111 93.3608881,11.1636444 C93.3483823,11.3390222 93.3437268,11.4835556 93.3464653,11.5979556 C93.3485649,11.7123556 93.3651784,11.8076444 93.3958497,11.8837333 C93.4259732,11.9601778 93.4673246,12.0437333 93.5193562,12.1352 C93.7954887,12.5924444 94.2391263,12.8208889 94.8499039,12.8208889 C95.1465752,12.8208889 95.4275456,12.7602667 95.6919938,12.6380444 C95.9561682,12.5161778 96.1710494,12.3488 96.336455,12.1352 C96.4805916,11.9675556 96.5782649,11.7962667 96.6297488,11.6208889 C96.6809588,11.4458667 96.7303432,11.1522667 96.7779019,10.7408 L96.806291,10.4895111 L96.916105,9.52942222 L100.296423,9.52942222 L99.7004331,14.7409778 Z" id="Fill-16" fill="grey"></path>
+            <g id="Group-20" transform="translate(103.150309, 0.018578)">
+              <mask id="mask-4" fill="white">
+                <use xlink:href="#path-3"></use>
+              </mask>
+              <g id="Clip-19"></g>
+              <path d="M10.6514561,11.9108978 C10.5530525,12.6274311 10.3895638,13.2062756 10.1591644,13.6481422 C9.92849108,14.0902756 9.57476767,14.47872 9.098907,14.81392 C8.5542186,15.1948978 7.94791386,15.4732089 7.27880611,15.6480533 C6.60969835,15.8232533 5.82146568,15.9110756 4.9141081,15.9110756 C3.13033802,15.9110756 1.81174846,15.5453867 0.956696294,14.81392 C0.558609128,14.46352 0.295621482,14.06352 0.167185655,13.6137422 C0.038658545,13.1644978 0.0137381606,12.5965867 0.0923332189,11.9108978 L0.988919355,4.07072 C1.07098318,3.35436444 1.23091181,2.77560889 1.46907035,2.33329778 C1.70713761,1.89143111 2.05602299,1.51045333 2.51490494,1.19036444 C3.06105388,0.794275556 3.6723792,0.508586667 4.34970247,0.33312 C5.0266606,0.158275556 5.81881846,0.0702755556 6.72608476,0.0702755556 C8.50930714,0.0702755556 9.81977248,0.443786667 10.6570244,1.19036444 C11.0547464,1.54112 11.3227546,1.93703111 11.4594973,2.37898667 C11.5968789,2.82120889 11.626546,3.38458667 11.5480422,4.07072 L10.6514561,11.9108978 Z M3.81304701,10.7679644 C3.76758785,11.1644089 3.74997014,11.4536533 3.76083288,11.6366756 C3.77041764,11.81952 3.82874777,11.9948089 3.93481915,12.1621867 C4.06635861,12.3759644 4.24646088,12.5472533 4.47430439,12.6765867 C4.70196534,12.8061867 4.96440528,12.8709867 5.26180679,12.8709867 C5.55847804,12.8709867 5.83981366,12.8061867 6.10508339,12.6765867 C6.37026184,12.5472533 6.58523439,12.3759644 6.75054873,12.1621867 C6.89459403,11.9948089 6.99263246,11.8234311 7.04384248,11.6478756 C7.09550892,11.4729422 7.14224605,11.2021867 7.18378003,10.8364089 L7.826872,5.21338667 C7.87214859,4.81738667 7.8897663,4.52752 7.87945127,4.34467556 C7.86877111,4.16183111 7.81080611,3.98680889 7.70509986,3.81916444 C7.57273885,3.60583111 7.38862011,3.43445333 7.15383905,3.30485333 C6.91832773,3.17534222 6.65972169,3.11045333 6.3782035,3.11045333 C6.08071071,3.11045333 5.79974022,3.17534222 5.53456177,3.30485333 C5.26947461,3.43445333 5.05450206,3.60583111 4.88918771,3.81916444 C4.74477728,3.98680889 4.64655628,4.15845333 4.59589396,4.33338667 C4.54441009,4.50876444 4.49694269,4.78707556 4.4533092,5.16760889 L3.81304701,10.7679644 Z" id="Fill-18" fill="grey" mask="url(#mask-4)"></path>
+            </g>
+            <path d="M116.322941,13.1408267 C116.644259,13.0649156 116.873837,12.9392267 117.011492,12.76376 C117.1486,12.5887378 117.239153,12.3106044 117.28306,11.9294489 L117.317109,11.6323822 L118.146146,4.38633778 L118.180194,4.08927111 C118.225288,3.69300444 118.198725,3.41122667 118.100686,3.24349333 C118.002557,3.07584889 117.801094,2.95398222 117.497303,2.87771556 L117.782381,0.38616 L123.697458,0.38616 L124.652739,7.63220444 L127.289462,0.38616 L132.923021,0.38616 L132.637942,2.87771556 C132.315712,2.95398222 132.086408,3.07976 131.949391,3.25478222 C131.811918,3.42998222 131.721274,3.70829333 131.677823,4.08927111 L131.643774,4.38633778 L130.814555,11.6323822 L130.780689,11.9294489 C130.750566,12.3258933 130.780689,12.6076711 130.87106,12.7753156 C130.961613,12.9431378 131.158785,13.0649156 131.463489,13.1408267 L131.177863,15.6323822 L125.943214,15.6323822 L126.228839,13.1408267 C126.550614,13.0649156 126.7801,12.9392267 126.917573,12.76376 C127.054772,12.5887378 127.145417,12.3106044 127.189415,11.9294489 L127.223099,11.6323822 L127.908273,5.64349333 L124.112341,15.6323822 L122.399042,15.6323822 L120.983418,5.64349333 L120.298244,11.6323822 L120.264378,11.9294489 C120.218737,12.3258933 120.244935,12.6076711 120.343338,12.7753156 C120.441742,12.9431378 120.642292,13.0649156 120.947179,13.1408267 L120.661553,15.6323822 L116.03768,15.6323822 L116.322941,13.1408267 Z" id="Fill-21" fill="grey"></path>
+          </g>
+        </g>
+      </svg>
+      </a>
+    </div>
+  </footer>
+</article>
+</main>
+
+<script src="./js/drinks-calculator.min.js" async></script>
+</body>
