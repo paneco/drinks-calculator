@@ -63,7 +63,8 @@
     "jest": "^26.6.1",
     "mustache": "^4.0.1",
     "rimraf": "^3.0.2",
-    "stylelint": "^13.7.2"
+    "stylelint": "^13.7.2",
+    "stylelint-config-standard": "^20.0.0"
   },
   "dependencies": {}
 }
