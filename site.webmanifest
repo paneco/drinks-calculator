@@ -1,19 +1,20 @@
 {
-    "name": "Paneco.com",
-    "short_name": "Paneco.com",
+    "name": "",
+    "short_name": "",
     "icons": [
         {
-            "src": "/android-chrome-192x192.png",
+            "src": "https://paneco.github.io/drinks-calculator/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/android-chrome-512x512.png",
+            "src": "https://paneco.github.io/drinks-calculator/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
+    "start_url": "https://paneco.github.io/drinks-calculator/",
     "display": "standalone"
 }
