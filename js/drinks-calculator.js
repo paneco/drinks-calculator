@@ -288,7 +288,8 @@ module.exports = {
   getVariableBalance: getVariableBalance,
   calculateLiquorTypeCount: calculateLiquorTypeCount,
   calculateUnitResults: calculateUnitResults,
-  toggleLockedRange: toggleLockedRange
+  toggleLockedRange: toggleLockedRange,
+  setResults: setResults
 }
 
 // Store the public functions in global properties referenced by a string for advanced compilations and minification

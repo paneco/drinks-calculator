@@ -592,3 +592,49 @@ test('update the value of the range field when the range is locked', () => {
   calculator.setRangeOutput(input, output, 1);
   expect(parseInt(output.value)).toBe(30);
 });
+
+test('set results values with empty results', () => {
+  document.body.innerHTML = '<dl id="dc-beer-results" class="dc-results-dl">' +
+    '<dt class="dc-results-important"><span class="fas fa-beer"></span>&nbsp;<output id="dc-beer-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-beer-results-total">0</output> (24 Bottles) of Beer</dt>' +
+    '<dd><output id="dc-beer-results-lager" for="dc-lager" name="dc-beer-results-lager">0</output> x Lager</dd>' +
+    '<dd><output id="dc-beer-results-ale" for="dc-ale" name="dc-beer-results-ale">0</output> x Ale</dd>' +
+    '</dl>';
+
+  var results = {};
+  calculator.setResults(results);
+  var totalResultField = document.getElementById('dc-beer-results-total');
+  expect(parseInt(totalResultField.value)).toBe(0);
+  var subResultField = document.getElementById('dc-beer-results-lager');
+  expect(parseInt(subResultField.value)).toBe(0);
+});
+
+test('set results values with total results only', () => {
+  document.body.innerHTML = '<dl id="dc-beer-results" class="dc-results-dl">' +
+    '<dt class="dc-results-important"><span class="fas fa-beer"></span>&nbsp;<output id="dc-beer-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-beer-results-total">0</output> (24 Bottles) of Beer</dt>' +
+    '<dd><output id="dc-beer-results-lager" for="dc-lager" name="dc-beer-results-lager">0</output> x Lager</dd>' +
+    '</dl>';
+
+  var results = { 'dc-beer-results-total': '1' };
+  calculator.setResults(results);
+  var totalResultField = document.getElementById('dc-beer-results-total');
+  expect(parseInt(totalResultField.value)).toBe(1);
+  var subResultField = document.getElementById('dc-beer-results-lager');
+  expect(parseInt(subResultField.value)).toBe(0);
+});
+
+test('set results values with total and subset results', () => {
+  document.body.innerHTML = '<dl id="dc-beer-results" class="dc-results-dl">' +
+    '<dt class="dc-results-important"><span class="fas fa-beer"></span>&nbsp;<output id="dc-beer-results-total" for="dc-guests dc-duration-hours dc-duration-minutes" name="dc-beer-results-total">0</output> (24 Bottles) of Beer</dt>' +
+    '<dd><output id="dc-beer-results-lager" for="dc-lager" name="dc-beer-results-lager">0</output> x Lager</dd>' +
+    '</dl>';
+
+  var results = { 
+    'dc-beer-results-total': '1',
+    'dc-beer-results-lager': '2'
+  };
+  calculator.setResults(results);
+  var totalResultField = document.getElementById('dc-beer-results-total');
+  expect(parseInt(totalResultField.value)).toBe(1);
+  var subResultField = document.getElementById('dc-beer-results-lager');
+  expect(parseInt(subResultField.value)).toBe(2);
+});
