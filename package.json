@@ -68,6 +68,5 @@
     "rimraf": "^3.0.2",
     "stylelint": "^13.7.2",
     "stylelint-config-standard": "^20.0.0"
-  },
-  "dependencies": {}
+  }
 }
