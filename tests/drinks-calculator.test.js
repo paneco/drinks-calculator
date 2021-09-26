@@ -1,4 +1,7 @@
-/** @nocompile */
+/**
+ * @nocompile
+ * @jest-environment jsdom
+ */
 'use strict';
 
 const calculator = require('../js/drinks-calculator.js');

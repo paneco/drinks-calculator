@@ -61,7 +61,7 @@
     "eslint-plugin-standard": "^4.0.2",
     "google-closure-compiler": "^20200614.0.0",
     "html-minifier": "^4.0.0",
-    "jest": "^26.6.1",
+    "jest": "^27.2.1",
     "mustache": "^4.0.1",
     "postcss": "^8.1.4",
     "postcss-cli": "^8.1.0",
