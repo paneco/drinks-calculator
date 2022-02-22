@@ -114,6 +114,12 @@
   margin-right: 0.2em;
 }
 
+@media screen and (max-width: 600px) {
+  .dc-range-selector-label {
+    visibility: hidden;
+  }
+}
+
 .dc-range-selector-lock {
   width: 18%;
   justify-content: left;

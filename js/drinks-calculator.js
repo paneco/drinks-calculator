@@ -136,12 +136,12 @@ function calculateSpiritsBottles(guests, hours) {
   return calculateTotalUnits(guests, hours, 'dc-spirits-range', 'dc-spirits-types', 'dc-spirits-results', STANDARD_DRINKS.spirits, CONSUMPTION_RATE.spirits, STANDARD_BOTTLE_SIZE.spirits, UNIT_TYPE_SPIRITS);
 }
 
-function calculateServes(guests, hours, standardDrinks, rate) {
+function calculateServes(guests, hours, standardDrinks, consumptionRate) {
   if (guests <= 0) return 0;
 
   if (hours <= 0) return 0;
 
-  return standardDrinks * rate * guests * hours;
+  return standardDrinks * consumptionRate * guests * hours;
 }
 
 function setRangeOutput(input, output, balance) {
