@@ -69,9 +69,10 @@ Try to use one of the templates provided.
 
 ## Developers
 ### Prerequisites
-The following prerequisites are needed by `drinks-calculator`. See the documentation for each regarding installation.
+The following prerequisites are needed by `drinks-calculator`. See the documentation for each regarding installation. You will need to invoke `node` and `npm` on the command line. You can get that by installing Node.js.
 
-* [npm](https://www.npmjs.com/)
+* [nvm](https://github.com/nvm-sh/nvm)  - (OPTIONAL) This is not necessary but is **highly recommended** since the Node installation process installs npm in a directory with local permissions and can cause permissions errors when you run npm packages globally. **Using `nvm` allows you to switch versions on the command line easily**.
+* [Node.js](https://nodejs.org/)
 
 The following prerequisites can be executed via npm:
 * [stylelint](https://stylelint.io)
@@ -84,6 +85,11 @@ The following prerequisites can be executed via npm:
 
 ### Setup
 Pull the code and create a branch.
+
+Run the following command to get all the dependencies for this project:
+```
+npm install
+```
 
 ### Use a Consistent Coding Style
 
