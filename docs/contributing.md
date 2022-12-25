@@ -72,7 +72,7 @@ Try to use one of the templates provided.
 The following prerequisites are needed by `drinks-calculator`. See the documentation for each regarding installation. You will need to invoke `node` and `npm` on the command line. You can get that by installing Node.js.
 
 * [nvm](https://github.com/nvm-sh/nvm)  - (OPTIONAL) This is not necessary but is **highly recommended** since the Node installation process installs npm in a directory with local permissions and can cause permissions errors when you run npm packages globally. **Using `nvm` allows you to switch versions on the command line easily**.
-* [Node.js](https://nodejs.org/)
+* [Node.js](https://nodejs.org/) **Recommended to install using nvm (or other Node package manager)**
 
 The following prerequisites can be executed via npm:
 * [stylelint](https://stylelint.io)
